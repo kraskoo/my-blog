@@ -7,6 +7,10 @@ const apiUrl = environment.apiURL;
 
 export class AppHttpInterceptor implements HttpInterceptor {
   intercept(req: HttpRequest<any>, next: HttpHandler) {
+    if (req.url.endsWith('upload/images')) {
+      return next.handle(req);
+    }
+
     return next.handle(req.clone({
       url: `${apiUrl}/${req.url}`
     })).pipe(catchError(val => of(val)));

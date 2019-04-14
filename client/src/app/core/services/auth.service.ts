@@ -1,10 +1,12 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { User } from '../models/user.model';
+import { Observable } from 'rxjs';
+import { map } from 'rxjs/operators';
 
 @Injectable({ providedIn: 'root' })
 export class AuthService {
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient) {}
 
   signin(email: string, password: string) {
     return this.http.post<{
@@ -28,5 +30,18 @@ export class AuthService {
       message: string,
       image: string
     }>('upload/changeProfilePicture', { file, fileName, userId });
+  }
+
+  getAllRegularUsers(): Observable<{ _id: string, firstName: string, lastName: string }[]> {
+    return this.http.get<{ _id: string, firstName: string, lastName: string }[]>('auth/allRegular').pipe(
+      // tslint:disable-next-line: no-string-literal
+      map(data => data['users']));
+  }
+
+  setToAdmin(id: string) {
+    return this.http.get<{
+      success: boolean,
+      message: string
+    }>(`auth/setadmin/${id}`);
   }
 }

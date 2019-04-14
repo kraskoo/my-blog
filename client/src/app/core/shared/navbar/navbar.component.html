@@ -16,10 +16,10 @@
     <ul class="nav navbar-nav navbar-right">
       <ng-template [ngIf]="!hasLoggedinUser">
         <li class="nav-item">
-          <a class="nav-link" routerLink="/auth/signup"><span class="glyphicon glyphicon-user"></span> Sign Up</a>
+          <a class="nav-link" routerLink="/auth/signup"><span class="fas fa-user-plus"></span> Sign Up</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" routerLink="/auth/signin"><span class="glyphicon glyphicon-log-in"></span> Sign In</a>
+          <a class="nav-link" routerLink="/auth/signin"><span class="fas fa-sign-in-alt"></span> Sign In</a>
         </li>
       </ng-template>
       <ng-template [ngIf]="hasLoggedinUser">
@@ -30,6 +30,9 @@
           </a>
           <div class="dropdown-menu dropdown-menu-right" aria-labelledby="user-menu">
             <a class="dropdown-item" routerLink="/auth/changePicture">Change Profile Picture</a>
+            <ng-template [ngIf]="isAdmin()">
+              <a class="dropdown-item" routerLink="/auth/setToAdmin">Set To Admin Role</a>
+            </ng-template>
             <div class="dropdown-divider"></div>
             <button class="dropdown-item" (click)="logout()">Logout</button>
           </div>

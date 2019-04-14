@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { UserService } from '../../services/user.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-navbar',
@@ -7,10 +8,16 @@ import { UserService } from '../../services/user.service';
   styleUrls: ['./navbar.component.css']
 })
 export class NavbarComponent {
-  constructor(private userService: UserService) {}
+  constructor(
+    private userService: UserService,
+    private router: Router) {}
 
   get hasLoggedinUser(): boolean {
     return this.userService.hasLoggedinUser();
+  }
+
+  isAdmin() {
+    return this.userService.hasRole('Admin');
   }
 
   get user() {
@@ -19,5 +26,6 @@ export class NavbarComponent {
 
   logout() {
     localStorage.removeItem('user');
+    this.router.navigate([ '/' ]);
   }
 }

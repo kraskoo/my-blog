@@ -22,7 +22,7 @@ router.post('/images', (req, res) => {
   }).on('end', () => {
     return res.status(200).json({
       success: true,
-      message: "Image upload successful",
+      message: "Image upload successfully!",
       imageUrl: newFilePath
     });
   }).parse(req);
