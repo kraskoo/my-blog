@@ -1,0 +1,32 @@
+<main id="main" class="container">
+  <h1>Sign Up</h1>
+  <div class="row">
+    <div class="col-md-6">
+      <form #f="ngForm" (ngSubmit)="onSubmit()">
+        <div class="form-group">
+          <label for="first-name">First name</label>
+          <input type="text" class="form-control" id="first-name" name="firstName" #firstName="ngModel" ngModel required minlength="4" placeholder="Ivan">
+        </div>
+        <div class="form-group">
+          <label for="last-name">Last name</label>
+          <input type="text" class="form-control" id="last-name" name="lastName" #lastName="ngModel" ngModel required minlength="4"  placeholder="Ivanov">
+        </div>
+        <div class="form-group">
+          <label for="email">Email address</label>
+          <input type="email" class="form-control" id="email" name="email" #email="ngModel" ngModel required pattern="^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(?:\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)*$" placeholder="name@example.com">
+        </div>
+        <div class="form-group">
+          <label for="password">Password</label>
+          <input type="password" class="form-control" id="password" name="password" #password="ngModel" ngModel required minlength="5" placeholder="*****">
+        </div>
+        <div class="form-group">
+          <label for="confirm-password">Confirm Password</label>
+          <input type="password" class="form-control" id="confirm-password" name="confirmPassword" #confirmPassword="ngModel" ngModel required minlength="5" placeholder="*****">
+        </div>
+        <div class="form-group">
+          <input type="submit" class="btn btn-outline-primary" value="Sign Up" />
+        </div>
+      </form>
+    </div>
+  </div>
+</main>

@@ -1,0 +1,8 @@
+html, body {
+  height: calc(100% - 3px);
+}
+
+#main {
+  min-height: calc(100% - 176px);
+  margin: 20px auto;
+}
