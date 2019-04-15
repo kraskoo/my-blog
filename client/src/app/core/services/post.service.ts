@@ -1,0 +1,37 @@
+import { Injectable } from '@angular/core';
+import { HttpClient } from '@angular/common/http';
+import { Post } from '../models/post.model';
+import { map } from 'rxjs/operators';
+
+@Injectable({ providedIn: 'root' })
+export class PostService {
+  constructor(private http: HttpClient) { }
+
+  createPost(title: string, content: string, author: string, creationDate: Date) {
+    return this.http.post<{
+      success: boolean,
+      message: string
+    }>('post/create', { title, content, author, creationDate });
+  }
+
+  getAll() {
+    return this.http.get<{
+      success: boolean,
+      message: string,
+      posts: Post[]
+    }>('post/all');
+  }
+
+  getById(id: string) {
+    return this.http.get<Post>(`post/get/${id}`).pipe(
+      // tslint:disable-next-line: no-string-literal
+      map(data => data['post']));
+  }
+
+  edit(id: string, title: string, content: string, creationDate: Date) {
+    return this.http.post<{
+      success: boolean,
+      message: string
+    }>(`post/edit/${id}`, { title, content, creationDate });
+  }
+}

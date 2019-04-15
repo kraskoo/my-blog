@@ -1,35 +1,23 @@
-import { Component } from '@angular/core';
-import { AngularEditorConfig } from '@kolkov/angular-editor';
+import { Component, OnInit } from '@angular/core';
+import { PostService } from '../../services/post.service';
+import { Post } from '../../models/post.model';
 
 @Component({
   selector: 'app-home',
   templateUrl: './home.component.html',
   styleUrls: ['./home.component.css']
 })
-export class HomeComponent {
-  htmlContent = '';
-  config: AngularEditorConfig = {
-    editable: true,
-    spellcheck: true,
-    height: '15rem',
-    minHeight: '25rem',
-    placeholder: 'Enter text here...',
-    translate: 'no',
-    uploadUrl: 'http://localhost:65535/upload/images',
-    customClasses: [
-      {
-        name: 'quote',
-        class: 'quote',
-      },
-      {
-        name: 'redText',
-        class: 'redText'
-      },
-      {
-        name: 'titleText',
-        class: 'titleText',
-        tag: 'h1',
-      },
-    ]
-  };
+export class HomeComponent implements OnInit {
+  posts: Post[];
+  constructor(
+    private postService: PostService
+  ) {}
+
+  ngOnInit() {
+    this.postService.getAll().subscribe(data => {
+      if (data.success) {
+        this.posts = data.posts;
+      }
+    });
+  }
 }

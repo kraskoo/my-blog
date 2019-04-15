@@ -1,0 +1,54 @@
+<main id="main" class="container">
+  <ng-template [ngIf]="isAuthor">
+    <div class="row">
+      <div class="col-md-10">
+        <h1>{{post.title}}</h1>
+        <small>{{post.creationDate | date: 'longDate'}}</small>
+      </div>
+      <div class="col-md-2">
+        <a routerLink='/post/edit/{{post._id}}'><span class="fas fa-edit"></span></a>
+      </div>
+    </div>
+  </ng-template>
+  <ng-template [ngIf]="!isAuthor">
+    <h1>{{post.title}}</h1>
+    <small>{{post.creationDate | date: 'longDate'}}</small>
+  </ng-template>
+  <div [innerHTML]="post.content | safe: 'html'"></div>
+  <div style="border: 1px solid yellowgreen;">
+    <h3>About author:</h3>
+    <div class="media">
+      <img src="{{post.author.profilePicture}}" alt="{{post.author.firstName}} {{post.author.lastName}}"
+        class="profile-picture align-self-start mr-3" />
+      <div class="media-body">
+        <h6 class="mt-0">{{post.author.firstName}} {{post.author.lastName}}
+        </h6>
+        Lorem ipsum dolor sit amet consectetur adipisicing elit. Asperiores odit distinctio, ex architecto illo nobis
+        maxime quibusdam quis veniam voluptates sequi et aspernatur ea quos odio totam error dolores voluptate?
+        Nulla libero est alias consequuntur ducimus autem assumenda dolorem facilis nobis exercitationem officiis qui
+        recusandae rerum hic id debitis, ipsa velit sequi deleniti itaque repudiandae aspernatur. At odit odio id?
+        Voluptas minus, est optio modi saepe non dolore! Culpa ipsa quo magni ducimus. Officia quis vel, magni at,
+        adipisci cum, quod ab delectus odit consequatur est mollitia vero nam. Iste?
+        Quasi ipsam ex porro esse assumenda sunt, officia tempora doloremque, repellat eius dicta, neque doloribus
+        placeat accusantium velit rerum dignissimos voluptatem reprehenderit iure cum in commodi beatae? Dolorum, dolore
+        commodi.
+        Repellendus nesciunt consequuntur dicta aliquid, impedit alias veniam veritatis pariatur architecto, ipsa non
+        doloremque quis? Quam voluptatum dolorum ratione adipisci atque mollitia magni ullam, commodi ipsa delectus
+        eaque perspiciatis officiis.
+        Consequatur dicta voluptatum magni modi inventore eos quaerat blanditiis. Voluptatem sequi eligendi dolore ab
+        qui fugit alias, totam maxime ex quam repellat delectus non perspiciatis, animi voluptatum commodi? Porro, sint!
+        Maxime placeat excepturi libero quia aliquam repellendus, dolor quae quas temporibus magni maiores dignissimos
+        delectus eum ratione eligendi inventore accusantium voluptatum! Iste quae dicta, velit ex eaque neque incidunt
+        modi.
+        Dolor soluta est alias, quasi temporibus blanditiis reiciendis tempora tenetur expedita doloribus! Culpa
+        voluptatem corporis tempora placeat. Iure neque magnam odit nesciunt non fugiat temporibus, rerum accusamus
+        laudantium cum obcaecati!
+        Odio sint beatae quasi! Nobis adipisci obcaecati eaque eveniet iure sapiente error voluptatem incidunt mollitia
+        voluptate odit dicta sed, veritatis optio ullam unde a, laudantium iste quos quae. Nostrum, quaerat?
+        Minima temporibus reiciendis quibusdam, tempore nesciunt sit eveniet, reprehenderit explicabo nulla deserunt ut
+        quisquam et itaque excepturi ex quis ea ab laudantium aperiam vel repudiandae illum. Nostrum ratione laboriosam
+        illo.
+      </div>
+    </div>
+  </div>
+</main>

@@ -5,8 +5,11 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { AppHttpInterceptor } from './core/interceptors/app-http.interceptor';
+
 import { SharedModule } from './core/shared/shared.module';
 import { AuthModule } from './core/auth/auth.module';
+import { PostModule } from './core/post/post.module';
+
 import { StoreModule } from '@ngrx/store';
 import { store } from './app.reducers';
 
@@ -20,7 +23,8 @@ import { store } from './app.reducers';
     StoreModule.forRoot(store),
     HttpClientModule,
     SharedModule,
-    AuthModule
+    AuthModule,
+    PostModule
   ],
   providers: [{
     provide: HTTP_INTERCEPTORS,

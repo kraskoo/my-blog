@@ -54,7 +54,12 @@
       <h3 class="pb-4 mb-4 font-italic border-bottom">
         From the Firehose
       </h3>
-
+      <div class="blog-post" *ngFor="let post of posts">
+        <h2 class="blog-post-title"><a routerLink="/post/{{post._id}}">{{post.title}}</a></h2>
+        <p class="blog-post-meta">{{post.creationDate | date: 'longDate'}} by {{post.author.firstName}}
+          {{post.author.lastName}}</p>
+        <hr />
+      </div>
       <div class="blog-post">
         <h2 class="blog-post-title">Sample blog post</h2>
         <p class="blog-post-meta">January 1, 2014 by <a href="#">Mark</a></p>
@@ -174,7 +179,4 @@
       </div>
     </aside><!-- /.blog-sidebar -->
   </div>
-  <angular-editor [(ngModel)]="htmlContent" [config]="config"></angular-editor>
-  <div class="html">{{htmlContent}}</div>
-  <div [innerHTML]="htmlContent"></div>
 </main>

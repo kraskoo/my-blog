@@ -16,5 +16,11 @@ module.exports = {
     loginSuccess: 'You have successfully logged in!',
     fetchedUserWithoutAdminRole: 'Successfully fetched all user without \'Admin\' role',
     setAdminRoleSuccessfully: (user) => `Successfully set admin role to ${user.username}`
+  },
+  post: {
+    createdPost: 'Successfully created post!',
+    editedPost: 'Successfully edited post!',
+    getAll: 'Successfully get all posts!',
+    get: (id) => `Successfully get post with id ${id}`
   }
 };
