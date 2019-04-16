@@ -1,6 +1,7 @@
 import { Component, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
 import { NgForm } from '@angular/forms';
+import { ToastrService } from 'ngx-toastr';
 
 import { AngularEditorConfig } from '@kolkov/angular-editor';
 
@@ -18,8 +19,8 @@ export class CreatePostComponent {
   constructor(
     private postService: PostService,
     private userService: UserService,
-    private router: Router
-  ) {}
+    private router: Router,
+    private toastr: ToastrService) {}
 
   htmlContent = '';
   config: AngularEditorConfig = {
@@ -56,7 +57,10 @@ export class CreatePostComponent {
       this.postService.createPost(title, content, author, creationDate).subscribe(data => {
         if (data.success) {
           this.router.navigate([ '/' ]);
-        } else {}
+          this.toastr.success(data.message);
+        } else {
+          this.toastr.error(data.message);
+        }
       });
     }
   }

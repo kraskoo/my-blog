@@ -1,6 +1,7 @@
 import { Component, ViewChild } from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { Router } from '@angular/router';
+import { ToastrService } from 'ngx-toastr';
 
 import { AuthService } from '../../services/auth.service';
 import { UserService } from '../../services/user.service';
@@ -18,7 +19,8 @@ export class ChangeProfilePictureComponent {
   constructor(
     private authService: AuthService,
     private userService: UserService,
-    private router: Router) { }
+    private router: Router,
+    private toastr: ToastrService) { }
 
   onChange(event) {
     const reader = new FileReader();
@@ -39,8 +41,9 @@ export class ChangeProfilePictureComponent {
           this.userService.removeUser();
           this.userService.addUser(user);
           this.router.navigate([ '/' ]);
+          this.toastr.success(data.message);
         } else {
-
+          this.toastr.error(data.message);
         }
       });
     }

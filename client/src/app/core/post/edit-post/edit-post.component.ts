@@ -1,9 +1,13 @@
 import { Component, OnInit, ViewChild, DoCheck } from '@angular/core';
 import { NgForm } from '@angular/forms';
+import { ToastrService } from 'ngx-toastr';
+
 import { PostService } from '../../services/post.service';
 import { UserService } from '../../services/user.service';
+
 import { Router, ActivatedRoute } from '@angular/router';
 import { AngularEditorConfig } from '@kolkov/angular-editor';
+
 import { Post } from '../../models/post.model';
 
 @Component({
@@ -47,8 +51,8 @@ export class EditPostComponent implements OnInit, DoCheck {
     private postService: PostService,
     private userService: UserService,
     private router: Router,
-    private route: ActivatedRoute
-  ) { }
+    private route: ActivatedRoute,
+    private toastr: ToastrService) {}
 
   ngOnInit() {
     // tslint:disable-next-line: no-string-literal
@@ -73,7 +77,10 @@ export class EditPostComponent implements OnInit, DoCheck {
       this.postService.edit(this.post._id, title, content, creationDate).subscribe(data => {
         if (data.success) {
           this.router.navigate([ '/' ]);
-        } else {}
+          this.toastr.success(data.message);
+        } else {
+          this.toastr.error(data.message);
+        }
       });
     }
   }

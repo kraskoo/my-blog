@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
+
 import { Post } from '../../models/post.model';
 import { UserService } from '../../services/user.service';
 
@@ -13,7 +14,7 @@ export class PostComponent implements OnInit {
 
   constructor(
     private route: ActivatedRoute,
-    private userService: UserService) { }
+    private userService: UserService) {}
 
   ngOnInit() {
     // tslint:disable-next-line: no-string-literal

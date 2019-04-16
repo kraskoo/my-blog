@@ -1,8 +1,10 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { Router } from '@angular/router';
-import { AuthService } from '../../services/auth.service';
+import { ToastrService } from 'ngx-toastr';
 import { Observable } from 'rxjs';
+
+import { AuthService } from '../../services/auth.service';
 
 @Component({
   selector: 'app-set-admin-role',
@@ -15,15 +17,11 @@ export class SetAdminRoleComponent implements OnInit {
 
   constructor(
     private authService: AuthService,
-    private router: Router
-  ) {}
+    private router: Router,
+    private toastr: ToastrService) {}
 
   ngOnInit(): void {
     this.users$ = this.authService.getAllRegularUsers();
-  }
-
-  isDefaultSelected(id: string) {
-    return id === '1';
   }
 
   onSubmit() {
@@ -32,7 +30,10 @@ export class SetAdminRoleComponent implements OnInit {
       this.authService.setToAdmin(user).subscribe(data => {
         if (data.success) {
           this.router.navigate([ '/' ]);
-        } else {}
+          this.toastr.success(data.message);
+        } else {
+          this.toastr.error(data.message);
+        }
       });
     }
   }
