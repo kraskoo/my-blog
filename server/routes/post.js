@@ -44,7 +44,14 @@ router.get('/all', (_req, res) => {
 });
 
 router.get('/get/:id', (req, res) => {
-  Post.findById(req.params.id).populate('author').populate('comments').then(post => {
+  Post.findById(req.params.id).populate('author').populate({
+    path: 'comments',
+    model: 'Comment',
+    populate: {
+      path: 'author',
+      model: 'User'
+    }
+  }).then(post => {
     return res.status(200).json({
       success: true,
       message: messages.get(post._id),
@@ -78,7 +85,7 @@ router.post('/edit/:id', (req, res) => {
           message: err.message
         });
       });
-      
+
     }).catch(err => {
       return res.status(400).json({
         success: false,

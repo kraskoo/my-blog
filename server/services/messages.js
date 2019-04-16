@@ -22,5 +22,8 @@ module.exports = {
     editedPost: 'Successfully edited post!',
     getAll: 'Successfully get all posts!',
     get: (id) => `Successfully get post with id ${id}`
+  },
+  comment: {
+    createdComment: 'Successfully created comment!'
   }
 };

@@ -5,7 +5,7 @@ import { map } from 'rxjs/operators';
 
 @Injectable({ providedIn: 'root' })
 export class PostService {
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient) {}
 
   createPost(title: string, content: string, author: string, creationDate: Date) {
     return this.http.post<{

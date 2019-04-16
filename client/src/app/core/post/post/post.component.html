@@ -15,6 +15,7 @@
     <small>{{post.creationDate | date: 'longDate'}}</small>
   </ng-template>
   <div [innerHTML]="post.content | safe: 'html'"></div>
+  <hr />
   <div style="border: 1px solid yellowgreen;">
     <h3>About author:</h3>
     <div class="media">
@@ -29,26 +30,33 @@
         recusandae rerum hic id debitis, ipsa velit sequi deleniti itaque repudiandae aspernatur. At odit odio id?
         Voluptas minus, est optio modi saepe non dolore! Culpa ipsa quo magni ducimus. Officia quis vel, magni at,
         adipisci cum, quod ab delectus odit consequatur est mollitia vero nam. Iste?
-        Quasi ipsam ex porro esse assumenda sunt, officia tempora doloremque, repellat eius dicta, neque doloribus
-        placeat accusantium velit rerum dignissimos voluptatem reprehenderit iure cum in commodi beatae? Dolorum, dolore
-        commodi.
-        Repellendus nesciunt consequuntur dicta aliquid, impedit alias veniam veritatis pariatur architecto, ipsa non
-        doloremque quis? Quam voluptatum dolorum ratione adipisci atque mollitia magni ullam, commodi ipsa delectus
-        eaque perspiciatis officiis.
-        Consequatur dicta voluptatum magni modi inventore eos quaerat blanditiis. Voluptatem sequi eligendi dolore ab
-        qui fugit alias, totam maxime ex quam repellat delectus non perspiciatis, animi voluptatum commodi? Porro, sint!
-        Maxime placeat excepturi libero quia aliquam repellendus, dolor quae quas temporibus magni maiores dignissimos
-        delectus eum ratione eligendi inventore accusantium voluptatum! Iste quae dicta, velit ex eaque neque incidunt
-        modi.
-        Dolor soluta est alias, quasi temporibus blanditiis reiciendis tempora tenetur expedita doloribus! Culpa
-        voluptatem corporis tempora placeat. Iure neque magnam odit nesciunt non fugiat temporibus, rerum accusamus
-        laudantium cum obcaecati!
-        Odio sint beatae quasi! Nobis adipisci obcaecati eaque eveniet iure sapiente error voluptatem incidunt mollitia
-        voluptate odit dicta sed, veritatis optio ullam unde a, laudantium iste quos quae. Nostrum, quaerat?
-        Minima temporibus reiciendis quibusdam, tempore nesciunt sit eveniet, reprehenderit explicabo nulla deserunt ut
-        quisquam et itaque excepturi ex quis ea ab laudantium aperiam vel repudiandae illum. Nostrum ratione laboriosam
-        illo.
       </div>
     </div>
   </div>
+  <hr />
+  <div class="row">
+    <div class="col-md-8">
+      <div class="media comment" *ngFor="let comment of post.comments">
+        <img src="{{comment.author.profilePicture}}" class="align-self-center mr-3"
+          alt="{{comment.author.firstName}} {{comment.author.lastName}}" style="max-width: 50px">
+        <div class="media-body">
+          <h5 class="mt-0">{{comment.author.firstName}} {{comment.author.lastName}} writes on {{comment.creationDate | date: 'longDate'}}:</h5>
+          <div class="comment-content" [innerHTML]="comment.content | safe: 'html'"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <hr />
+  <ng-template [ngIf]="canShowCommentForm()">
+    <h3>Type comment</h3>
+    <form #f="ngForm" (ngSubmit)="onSubmit()">
+      <div class="form-group">
+        <angular-editor [(ngModel)]="htmlContent" [config]="config" name="content" #content="ngModel" ngModel required>
+        </angular-editor>
+      </div>
+      <div class="form-group">
+        <input type="submit" class="btn btn-outline-primary" value="Post" [disabled]="f.invalid" />
+      </div>
+    </form>
+  </ng-template>
 </main>
