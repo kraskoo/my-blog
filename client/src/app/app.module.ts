@@ -12,6 +12,7 @@ import { AppHttpInterceptor } from './core/interceptors/app-http.interceptor';
 import { SharedModule } from './core/shared/shared.module';
 import { AuthModule } from './core/auth/auth.module';
 import { PostModule } from './core/post/post.module';
+import { CommentModule } from './core/comment/comment.module';
 
 import { StoreModule } from '@ngrx/store';
 import { store } from './app.reducers';
@@ -33,7 +34,8 @@ import { store } from './app.reducers';
     HttpClientModule,
     SharedModule,
     AuthModule,
-    PostModule
+    PostModule,
+    CommentModule
   ],
   providers: [{
     provide: HTTP_INTERCEPTORS,

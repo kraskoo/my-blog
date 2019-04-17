@@ -14,7 +14,7 @@ export class HomeComponent implements OnInit {
 
   constructor(
     private postService: PostService,
-    private toastr: ToastrService) {}
+    private toastr: ToastrService) { }
 
   ngOnInit() {
     this.postService.getAll().subscribe(data => {
@@ -22,7 +22,8 @@ export class HomeComponent implements OnInit {
         this.posts = data.posts;
         this.posts.forEach(post => {
           const paragraphs = post.content.split(/<[^>]*>/gm).filter(x => x !== '' && x.length > 5);
-          this.shortContents.push(`${paragraphs[0]} ${paragraphs[1]} ...`);
+          const content = `${paragraphs[0]} ${paragraphs[1]} ${paragraphs[2]} ${paragraphs[3]} ...`;
+          this.shortContents.push(content);
         });
       } else {
         this.toastr.error(data.message);

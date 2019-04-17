@@ -6,6 +6,16 @@
   margin-bottom: 20px;
 }
 
-.comment-content {
-  border: 1px solid black;
+.author, .comment-content {
+  background-color: #f5f5f5;
+  border-radius: 15px;
+  padding: 15px;
+  -webkit-box-shadow: 0px 2px 3px 1px rgba(175,175,175,0.6);
+	-moz-box-shadow: 0px 2px 3px 1px rgba(175,175,175,0.6);
+	box-shadow: 0px 2px 3px 1px rgba(175,175,175,0.6);
+}
+
+#comment-icons > a, #author-icons > a {
+  color: black;
+  padding-right: 20px;
 }

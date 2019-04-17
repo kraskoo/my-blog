@@ -24,6 +24,7 @@ module.exports = new PassportLocalStrategy({
       firstName: user.firstName,
       lastName: user.lastName,
       email: user.email,
+      info: user.info,
       profilePicture: user.profilePicture
     };
     if (user.roles) {

@@ -7,6 +7,7 @@ import { ToastrService } from 'ngx-toastr';
 import { CommentService } from '../../services/comment.service';
 import { Post } from '../../models/post.model';
 import { UserService } from '../../services/user.service';
+import { CommentModel } from '../../models/comment.model';
 
 @Component({
   selector: 'app-post',
@@ -20,26 +21,11 @@ export class PostComponent implements OnInit {
   config: AngularEditorConfig = {
     editable: true,
     spellcheck: true,
-    height: '15rem',
-    minHeight: '25rem',
+    height: '10rem',
+    minHeight: '10rem',
     placeholder: 'Enter text here...',
     translate: 'no',
-    uploadUrl: 'http://localhost:65535/upload/images',
-    customClasses: [
-      {
-        name: 'quote',
-        class: 'quote',
-      },
-      {
-        name: 'redText',
-        class: 'redText'
-      },
-      {
-        name: 'titleText',
-        class: 'titleText',
-        tag: 'h1',
-      },
-    ]
+    uploadUrl: 'http://localhost:65535/upload/images'
   };
 
   constructor(
@@ -47,21 +33,29 @@ export class PostComponent implements OnInit {
     private userService: UserService,
     private router: Router,
     private toastr: ToastrService,
-    private commentService: CommentService) {}
+    private commentService: CommentService) { }
 
-  get isAuthor(): boolean {
-    // tslint:disable-next-line: no-string-literal
-    return this.userService.hasLoggedinUser() && this.userService.user.id === this.post.author['_id'];
+  get isAuthorOnPost(): boolean {
+    return this.userService.hasLoggedinUser() &&
+      this.userService.user.id === this.post.author._id;
+  }
+
+  isAuthorOnComment(comment: CommentModel): boolean {
+    return this.userService.hasLoggedinUser() &&
+      comment.author._id === this.userService.user.id;
   }
 
   ngOnInit() {
     // tslint:disable-next-line: no-string-literal
     this.post = this.route.snapshot.data['post'];
-    console.log(this.post);
   }
 
   canShowCommentForm(): boolean {
     return this.userService.hasLoggedinUser();
+  }
+
+  hasAuthorInfo() {
+    return this.post.author.info !== '';
   }
 
   onSubmit() {
@@ -70,7 +64,7 @@ export class PostComponent implements OnInit {
       const postId = this.post._id;
       this.commentService.createComment(this.htmlContent, authorId, postId).subscribe(data => {
         if (data.success) {
-          this.router.navigate([ '/' ]);
+          this.router.navigate(['/']);
           this.toastr.success(data.message);
         } else {
           this.toastr.error(data.message);

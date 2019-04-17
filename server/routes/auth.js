@@ -4,7 +4,7 @@ const validator = require('validator');
 const User = require('../models/User');
 const router = new express.Router();
 const requirements = require('../config/settings').requirements;
-const messages = require('../services/messages').user;
+const { common: commonMessages, user: messages } = require('../services/messages');
 const { isString } = require('../services/type');
 
 function validateSignupForm (payload) {
@@ -163,6 +163,54 @@ router.get('/setadmin/:id', (req, res) => {
       message: error.message
     });
   });
+});
+
+router.get('/get/:id', (req, res) => {
+  const { id } = req.params;
+  User.findById(id).then(user => {
+    return res.status(200).json({
+      success: true,
+      message: messages.getUser,
+      user
+    })
+  }).catch(err => {
+    return res.status(400).json({
+      success: false,
+      message: err.message
+    })
+  });
+});
+
+router.post('/addinfo/:id', (req, res) => {
+  const { id } = req.params;
+  const body = req.body;
+  if (body) {
+    const { info } = body;
+    User.findById(id).then(user => {
+      user.info = info;
+      user.save().then(() => {
+        return res.status(200).json({
+          success: true,
+          message: messages.addedOrEditedInfo
+        });
+      }).catch(err => {
+        return res.status(400).json({
+          success: false,
+          message: err.message
+        });
+      });
+    }).catch(err => {
+      return res.status(400).json({
+        success: false,
+        message: err.message
+      });
+    });
+  } else {
+    return res.status(400).json({
+      success: false,
+      message: commonMessages.requiredBody
+    });
+  }
 });
 
 module.exports = router;

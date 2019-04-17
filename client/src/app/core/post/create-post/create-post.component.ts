@@ -30,22 +30,7 @@ export class CreatePostComponent {
     minHeight: '25rem',
     placeholder: 'Enter text here...',
     translate: 'no',
-    uploadUrl: 'http://localhost:65535/upload/images',
-    customClasses: [
-      {
-        name: 'quote',
-        class: 'quote',
-      },
-      {
-        name: 'redText',
-        class: 'redText'
-      },
-      {
-        name: 'titleText',
-        class: 'titleText',
-        tag: 'h1',
-      },
-    ]
+    uploadUrl: 'http://localhost:65535/upload/images'
   };
 
   onSubmit() {

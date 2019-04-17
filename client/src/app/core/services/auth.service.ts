@@ -6,7 +6,7 @@ import { map } from 'rxjs/operators';
 
 @Injectable({ providedIn: 'root' })
 export class AuthService {
-  constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient) { }
 
   signin(email: string, password: string) {
     return this.http.post<{
@@ -32,6 +32,16 @@ export class AuthService {
     }>('upload/changeProfilePicture', { file, fileName, userId });
   }
 
+  getById(id: string) {
+    return this.http.get<{
+      success: boolean,
+      message: string,
+      user: User
+    }>(`auth/get/${id}`).pipe(
+      map(data => data.user)
+    );
+  }
+
   getAllRegularUsers(): Observable<{ _id: string, firstName: string, lastName: string }[]> {
     return this.http.get<{ _id: string, firstName: string, lastName: string }[]>('auth/allRegular').pipe(
       // tslint:disable-next-line: no-string-literal
@@ -43,5 +53,12 @@ export class AuthService {
       success: boolean,
       message: string
     }>(`auth/setadmin/${id}`);
+  }
+
+  addInfo(id: string, info: string) {
+    return this.http.post<{
+      success: boolean,
+      message: string
+    }>(`auth/addinfo/${id}`, { info });
   }
 }

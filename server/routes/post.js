@@ -100,4 +100,38 @@ router.post('/edit/:id', (req, res) => {
   }
 });
 
+router.post('/delete/:id', (req, res) => {
+  const { id } = req.params;
+  Post.findById(id).populate('comments').then(post => {
+    const deletedComments = [];
+    const comments = post.comments;
+    comments.forEach(comment => {
+      deletedComments.push(Comment.findByIdAndRemove(comment._id));
+    });
+    Promise.all(deletedComments).then(() => {
+      Post.findByIdAndRemove(post._id).then(() => {
+        return res.status(200).json({
+          success: true,
+          message: messages.deletedPost
+        });
+      }).catch(err => {
+        return res.status(400).json({
+          success: false,
+          message: err.message
+        });
+      });
+    }).catch(err => {
+      return res.status(400).json({
+        success: false,
+        message: err.message
+      });
+    });
+  }).catch(err => {
+    return res.status(400).json({
+      success: false,
+      message: err.message
+    });
+  });
+});
+
 module.exports = router;

@@ -56,8 +56,14 @@
       </h3>
       <div class="blog-post" *ngFor="let post of posts; let i = index; let length = count;">
         <h2 class="blog-post-title"><a routerLink="/post/{{post._id}}">{{post.title}}</a></h2>
-        <p class="blog-post-meta">{{post.creationDate | date: 'longDate'}} by {{post.author.firstName}}
-          {{post.author.lastName}}</p>
+        <p class="blog-post-meta">{{post.creationDate | date: 'longDate'}} by
+          <ng-template [ngIf]="post.author.info !== ''">
+            <a routerLink="/auth/info/{{post.author._id}}">{{post.author.firstName}} {{post.author.lastName}}</a>
+          </ng-template>
+          <ng-template [ngIf]="post.author.info === ''">
+            {{post.author.firstName}} {{post.author.lastName}}
+          </ng-template>
+        </p>
         <a routerLink="/post/{{post._id}}">{{shortContents[i]}}</a>
         <ng-template [ngIf]="i !== length - 1">
           <hr />

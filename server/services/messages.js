@@ -15,15 +15,20 @@ module.exports = {
     unprocessableForm: 'Could not process the form.',
     loginSuccess: 'You have successfully logged in!',
     fetchedUserWithoutAdminRole: 'Successfully fetched all user without \'Admin\' role',
-    setAdminRoleSuccessfully: (user) => `Successfully set admin role to ${user.username}`
+    setAdminRoleSuccessfully: (user) => `Successfully set admin role to ${user.firstName} ${user.lastName}`,
+    addedOrEditedInfo: 'Successfully added/edited info!',
+    getUser: 'Successfully get user!'
   },
   post: {
     createdPost: 'Successfully created post!',
     editedPost: 'Successfully edited post!',
+    deletedPost: 'Successfully delete post!',
     getAll: 'Successfully get all posts!',
     get: (id) => `Successfully get post with id ${id}`
   },
   comment: {
-    createdComment: 'Successfully created comment!'
+    createdComment: 'Successfully created comment!',
+    deletedComment: 'Successfully deleted comment!',
+    editedComment: 'Successfully edited comment!'
   }
 };

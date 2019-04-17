@@ -9,6 +9,7 @@ const userSchema = new mongoose.Schema({
   salt: { type: String, required: requiredMessaage },
   password: { type: String, required: requiredMessaage },
   profilePicture: { type: String, required: requiredMessaage, default: 'http://localhost:65535/static/avatars/defaultProfilePicture.png' },
+  info: { type: String, default: '' },
   roles: [{ type: String }]
 });
 

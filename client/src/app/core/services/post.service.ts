@@ -34,4 +34,11 @@ export class PostService {
       message: string
     }>(`post/edit/${id}`, { title, content, creationDate });
   }
+
+  delete(id: string) {
+    return this.http.post<{
+      success: boolean,
+      message: string
+    }>(`post/delete/${id}`, {});
+  }
 }
