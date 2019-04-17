@@ -41,15 +41,17 @@ export class DeleteCommentComponent implements OnInit, DoCheck {
   }
 
   ngDoCheck() {
-    if (!this.userService.hasLoggedinUser() || this.comment.author._id !== this.userService.user.id) {
-      this.router.navigate([ '/' ]);
+    if (!this.userService.hasLoggedinUser() ||
+      !(this.comment.author._id === this.userService.user.id ||
+        this.userService.user.id === this.comment.post.author._id)) {
+      this.router.navigate(['/']);
     }
   }
 
   onSubmit() {
     this.commentService.delete(this.comment._id).subscribe(data => {
       if (data.success) {
-        this.router.navigate([ '/' ]);
+        this.router.navigate(['/']);
         this.toastr.success(data.message);
       } else {
         this.toastr.error(data.message);

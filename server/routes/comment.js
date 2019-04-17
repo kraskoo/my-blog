@@ -44,7 +44,14 @@ router.post('/create', (req, res) => {
 
 router.get('/get/:id', (req, res) => {
   const { id } = req.params;
-  Comment.findById(id).populate('author').then(comment => {
+  Comment.findById(id).populate('author').populate({
+    path: 'post',
+    model: 'Post',
+    populate: {
+      path: 'author',
+      model: 'User'
+    }
+  }).then(comment => {
     return res.status(200).json({
       success: true,
       message: 'Successfully get comment!',

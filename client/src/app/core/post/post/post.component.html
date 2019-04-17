@@ -54,7 +54,7 @@
     </ng-template>
     <ng-template [ngIf]="!isAuthorOnComment(comment) && isAuthorOnPost">
       <div class="col-md-4" id="comment-icons">
-        <a routerLink="/"><span class="far fa-trash-alt"></span></a>
+        <a routerLink="/comment/delete/{{comment._id}}"><span class="far fa-trash-alt"></span></a>
       </div>
     </ng-template>
   </div>
