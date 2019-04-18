@@ -1,9 +1,9 @@
 import { Injectable } from '@angular/core';
 import { Resolve, ActivatedRouteSnapshot, RouterStateSnapshot } from '@angular/router';
 
-import { CommentModel } from '../models/comment.model';
-
 import { CommentService } from '../services/comment.service';
+
+import { CommentModel } from '../models/comment.model';
 
 @Injectable({ providedIn: 'root' })
 export default class CommentResolver implements Resolve<CommentModel> {

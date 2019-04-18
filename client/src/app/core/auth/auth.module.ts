@@ -3,6 +3,7 @@ import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { AngularEditorModule } from '@kolkov/angular-editor';
 import { PipeModule } from '../pipes/pipe.module';
+import { AuthRoutingModule } from './auth-routing.module';
 
 import { SigninComponent } from './signin/signin.component';
 import { SignupComponent } from './signup/signup.component';
@@ -23,6 +24,7 @@ import { InfoComponent } from './info/info.component';
   imports: [
     CommonModule,
     FormsModule,
+    AuthRoutingModule,
     AngularEditorModule,
     PipeModule
   ]

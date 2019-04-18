@@ -9,6 +9,7 @@ import { CreatePostComponent } from './create-post/create-post.component';
 import { EditPostComponent } from './edit-post/edit-post.component';
 import { DeletePostComponent } from './delete-post/delete-post.component';
 import { PipeModule } from '../pipes/pipe.module';
+import { PostRoutingModule } from './post-routing.module';
 
 @NgModule({
   declarations: [
@@ -19,7 +20,7 @@ import { PipeModule } from '../pipes/pipe.module';
   ],
   imports: [
     CommonModule,
-    AppRoutingModule,
+    PostRoutingModule,
     AngularEditorModule,
     FormsModule,
     PipeModule

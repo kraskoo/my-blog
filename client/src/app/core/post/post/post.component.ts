@@ -17,7 +17,9 @@ import { CommentModel } from '../../models/comment.model';
 export class PostComponent implements OnInit {
   @ViewChild('f') form: NgForm;
   post: Post;
+  hasAuthorInfo = false;
   htmlContent = '';
+
   config: AngularEditorConfig = {
     editable: true,
     spellcheck: true,
@@ -48,14 +50,11 @@ export class PostComponent implements OnInit {
   ngOnInit() {
     // tslint:disable-next-line: no-string-literal
     this.post = this.route.snapshot.data['post'];
+    this.hasAuthorInfo = this.post.author.info !== '';
   }
 
   canShowCommentForm(): boolean {
     return this.userService.hasLoggedinUser();
-  }
-
-  hasAuthorInfo() {
-    return this.post.author.info !== '';
   }
 
   onSubmit() {

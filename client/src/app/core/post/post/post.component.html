@@ -16,7 +16,7 @@
     <small>{{post.creationDate | date: 'longDate'}}</small>
   </ng-template>
   <div [innerHTML]="post.content | safe: 'html'"></div>
-  <ng-template ngIf="hasAuthorInfo()">
+  <ng-template [ngIf]="hasAuthorInfo">
     <hr />
     <div class="info-box">
       <h3>About author:</h3>

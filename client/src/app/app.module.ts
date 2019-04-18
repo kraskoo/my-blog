@@ -10,9 +10,6 @@ import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { AppHttpInterceptor } from './core/interceptors/app-http.interceptor';
 
 import { SharedModule } from './core/shared/shared.module';
-import { AuthModule } from './core/auth/auth.module';
-import { PostModule } from './core/post/post.module';
-import { CommentModule } from './core/comment/comment.module';
 
 @NgModule({
   declarations: [
@@ -28,10 +25,7 @@ import { CommentModule } from './core/comment/comment.module';
       preventDuplicates: true,
     }),
     HttpClientModule,
-    SharedModule,
-    AuthModule,
-    PostModule,
-    CommentModule
+    SharedModule
   ],
   providers: [{
     provide: HTTP_INTERCEPTORS,
