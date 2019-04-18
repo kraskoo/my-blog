@@ -1,20 +1,55 @@
 <main id="main" class="container">
-  <h1>Create Post</h1>
-  <form #f="ngForm" (ngSubmit)="onSubmit()">
-    <div class="form-group">
-      <label for="title">Title: </label>
-      <input type="text" class="form-control" id="title" name="title" #title="ngModel" ngModel required minlength="5" />
+  <div class="row">
+    <div class="col-md-9">
+      <h1>Create Post</h1>
+      <form #f="ngForm" (ngSubmit)="onSubmit()">
+        <div class="form-group">
+          <label for="title">Title: </label>
+          <input type="text" class="form-control" id="title" name="title" #title="ngModel" ngModel required
+            minlength="10" />
+        </div>
+        <div class="form-group">
+          <label for="date">Date: </label>
+          <input type="date" class="form-control" id="date" name="date" #date="ngModel" ngModel required />
+        </div>
+        <div class="form-group">
+          <label for="editor">Content: </label>
+          <angular-editor [(ngModel)]="htmlContent" [config]="config" name="content" #content="ngModel" ngModel
+            required></angular-editor>
+        </div>
+        <div class="form-group">
+          <input type="submit" class="btn btn-outline-primary" value="Post" [disabled]="f.invalid || !hasValidValue" />
+        </div>
+      </form>
     </div>
-    <div class="form-group">
-      <label for="date">Date: </label>
-      <input type="date" class="form-control" id="date" name="date" #date="ngModel" ngModel required />
+    <div class="col-md-3">
+      <div class="alert alert-danger alert-dismissible fade show" role="alert"
+        *ngIf="title?.touched && title?.errors?.required">
+        Title is required!
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="alert alert-danger alert-dismissible fade show" role="alert"
+        *ngIf="title?.touched && !title?.errors?.required && title?.errors?.minlength">
+        Title must be at least 10 characters!
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="alert alert-danger alert-dismissible fade show" role="alert"
+        *ngIf="date?.touched && date?.errors?.required">
+        Date is required!
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="alert alert-danger alert-dismissible fade show" role="alert" *ngIf="!hasValidValue">
+        Content must be at least 50 characters!
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
     </div>
-    <div class="form-group">
-      <label for="editor">Content: </label>
-      <angular-editor [(ngModel)]="htmlContent" [config]="config" name="content" #content="ngModel" ngModel required></angular-editor>
-    </div>
-    <div class="form-group">
-      <input type="submit" class="btn btn-outline-primary" value="Post" [disabled]="f.invalid" />
-    </div>
-  </form>
+  </div>
 </main>

@@ -33,6 +33,10 @@ export class CreatePostComponent {
     uploadUrl: 'http://localhost:65535/upload/images'
   };
 
+  get hasValidValue(): boolean {
+    return this.htmlContent.length > 50;
+  }
+
   onSubmit() {
     const hasXSS = this.htmlContent.match(/<script.*>.*<\/script>/gm) !== null;
     if (hasXSS) {

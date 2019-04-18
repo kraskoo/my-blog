@@ -57,6 +57,10 @@ export class PostComponent implements OnInit {
     return this.userService.hasLoggedinUser();
   }
 
+  get hasValue(): boolean {
+    return this.htmlContent.length > 0;
+  }
+
   onSubmit() {
     const hasXSS = this.htmlContent.match(/<script.*>.*<\/script>/gm) !== null;
     if (hasXSS) {

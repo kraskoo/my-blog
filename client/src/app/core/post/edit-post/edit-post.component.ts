@@ -52,6 +52,10 @@ export class EditPostComponent implements OnInit, DoCheck {
     }
   }
 
+  get hasValidValue(): boolean {
+    return this.htmlContent.length > 50;
+  }
+
   onSubmit() {
     const hasXSS = this.htmlContent.match(/<script.*>.*<\/script>/gm) !== null;
     if (hasXSS) {

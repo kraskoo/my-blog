@@ -46,6 +46,10 @@ export class EditCommentComponent implements OnInit, DoCheck {
     }
   }
 
+  get hasValue(): boolean {
+    return this.htmlContent.length > 0;
+  }
+
   onSubmit() {
     const hasXSS = this.htmlContent.match(/<script.*>.*<\/script>/gm) !== null;
     if (hasXSS) {

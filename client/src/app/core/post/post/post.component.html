@@ -63,11 +63,11 @@
     <h3>Type comment</h3>
     <form #f="ngForm" (ngSubmit)="onSubmit()">
       <div class="form-group">
-        <angular-editor [(ngModel)]="htmlContent" [config]="config" name="content" #content="ngModel" ngModel required>
+        <angular-editor [(ngModel)]="htmlContent" [config]="config" name="content" #content="ngModel" ngModel>
         </angular-editor>
       </div>
       <div class="form-group">
-        <input type="submit" class="btn btn-outline-primary" value="Post Comment" [disabled]="f.invalid" />
+        <input type="submit" class="btn btn-outline-primary" value="Post Comment" [disabled]="!hasValue" />
       </div>
     </form>
   </ng-template>

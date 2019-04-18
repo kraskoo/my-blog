@@ -28,12 +28,16 @@ export class AddInfoComponent implements OnInit {
     private userService: UserService,
     private authService: AuthService,
     private router: Router,
-    private toastr: ToastrService) {}
+    private toastr: ToastrService) { }
 
   ngOnInit(): void {
     if (this.userService.user.info !== '') {
       this.htmlContent = this.userService.user.info;
     }
+  }
+
+  get hasValue(): boolean {
+    return this.htmlContent.length > 0;
   }
 
   onSubmit() {
@@ -46,7 +50,7 @@ export class AddInfoComponent implements OnInit {
     if (this.form.valid) {
       this.authService.addInfo(this.userService.user.id, this.htmlContent).subscribe(data => {
         if (data.success) {
-          this.router.navigate([ '/' ]);
+          this.router.navigate(['/']);
           const user = this.userService.user;
           user.info = this.htmlContent;
           this.userService.removeUser();

@@ -7,7 +7,7 @@
       </angular-editor>
     </div>
     <div class="form-group">
-      <input type="submit" class="btn btn-outline-success" value="Edit" [disabled]="f.invalid" />
+      <input type="submit" class="btn btn-outline-success" value="Edit" [disabled]="!hasValue" />
     </div>
   </form>
 </main>
