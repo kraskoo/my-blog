@@ -47,6 +47,12 @@ export class EditCommentComponent implements OnInit, DoCheck {
   }
 
   onSubmit() {
+    const hasXSS = this.htmlContent.match(/<script.*>.*<\/script>/gm) !== null;
+    if (hasXSS) {
+      this.toastr.warning('Cross site scripting is detect', 'Hack warning');
+      return;
+    }
+
     this.commentService.edit(this.comment._id, this.htmlContent).subscribe(data => {
       if (data.success) {
         this.router.navigate([ '/' ]);

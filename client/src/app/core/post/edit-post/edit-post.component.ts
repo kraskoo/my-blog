@@ -53,6 +53,12 @@ export class EditPostComponent implements OnInit, DoCheck {
   }
 
   onSubmit() {
+    const hasXSS = this.htmlContent.match(/<script.*>.*<\/script>/gm) !== null;
+    if (hasXSS) {
+      this.toastr.warning('Cross site scripting is detect', 'Hack warning');
+      return;
+    }
+
     if (this.form.valid) {
       const title = this.form.controls.title.value;
       const content = this.htmlContent;

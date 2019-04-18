@@ -58,6 +58,12 @@ export class PostComponent implements OnInit {
   }
 
   onSubmit() {
+    const hasXSS = this.htmlContent.match(/<script.*>.*<\/script>/gm) !== null;
+    if (hasXSS) {
+      this.toastr.warning('Cross site scripting is detect', 'Hack warning');
+      return;
+    }
+
     if (this.htmlContent !== '') {
       const authorId = this.userService.user.id;
       const postId = this.post._id;

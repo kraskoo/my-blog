@@ -34,6 +34,12 @@ export class CreatePostComponent {
   };
 
   onSubmit() {
+    const hasXSS = this.htmlContent.match(/<script.*>.*<\/script>/gm) !== null;
+    if (hasXSS) {
+      this.toastr.warning('Cross site scripting is detect', 'Hack warning');
+      return;
+    }
+
     if (this.form.valid) {
       const content = this.htmlContent;
       const author = this.userService.user.id;

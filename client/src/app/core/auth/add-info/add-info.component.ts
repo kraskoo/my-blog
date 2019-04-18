@@ -37,6 +37,12 @@ export class AddInfoComponent implements OnInit {
   }
 
   onSubmit() {
+    const hasXSS = this.htmlContent.match(/<script.*>.*<\/script>/gm) !== null;
+    if (hasXSS) {
+      this.toastr.warning('Cross site scripting is detect', 'Hack warning');
+      return;
+    }
+
     if (this.form.valid) {
       this.authService.addInfo(this.userService.user.id, this.htmlContent).subscribe(data => {
         if (data.success) {
