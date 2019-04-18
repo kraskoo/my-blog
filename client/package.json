@@ -20,7 +20,6 @@
     "@angular/platform-browser-dynamic": "~7.2.0",
     "@angular/router": "~7.2.0",
     "@kolkov/angular-editor": "^0.13.1",
-    "@ngrx/store": "^7.4.0",
     "bootstrap": "4.3.1",
     "core-js": "^2.5.4",
     "jquery": "3.4.0",

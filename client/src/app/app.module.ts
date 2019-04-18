@@ -14,9 +14,6 @@ import { AuthModule } from './core/auth/auth.module';
 import { PostModule } from './core/post/post.module';
 import { CommentModule } from './core/comment/comment.module';
 
-import { StoreModule } from '@ngrx/store';
-import { store } from './app.reducers';
-
 @NgModule({
   declarations: [
     AppComponent
@@ -30,7 +27,6 @@ import { store } from './app.reducers';
       positionClass: 'toast-top-right',
       preventDuplicates: true,
     }),
-    StoreModule.forRoot(store),
     HttpClientModule,
     SharedModule,
     AuthModule,

@@ -54,7 +54,7 @@ router.get('/get/:id', (req, res) => {
   }).then(comment => {
     return res.status(200).json({
       success: true,
-      message: 'Successfully get comment!',
+      message: messages.getComment,
       comment
     });
   }).catch(err => {

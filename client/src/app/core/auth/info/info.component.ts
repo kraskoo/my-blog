@@ -1,5 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import { UserService } from '../../services/user.service';
 import { User } from '../../models/user.model';
 import { ActivatedRoute } from '@angular/router';
 
@@ -10,6 +9,7 @@ import { ActivatedRoute } from '@angular/router';
 })
 export class InfoComponent implements OnInit {
   user: User;
+
   constructor(
     private route: ActivatedRoute) {}
 
@@ -20,5 +20,9 @@ export class InfoComponent implements OnInit {
 
   info() {
     return this.user.info;
+  }
+
+  userName() {
+    return `${this.user.firstName} ${this.user.lastName}`;
   }
 }

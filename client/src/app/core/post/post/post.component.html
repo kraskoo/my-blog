@@ -18,7 +18,7 @@
   <div [innerHTML]="post.content | safe: 'html'"></div>
   <ng-template ngIf="hasAuthorInfo()">
     <hr />
-    <div class="author">
+    <div class="info-box">
       <h3>About author:</h3>
       <div class="media">
         <img src="{{post.author.profilePicture}}" alt="{{post.author.firstName}} {{post.author.lastName}}"
@@ -42,7 +42,7 @@
         <div class="media-body">
           <h5 class="mt-0">{{comment.author.firstName}} {{comment.author.lastName}} writes on
             {{comment.creationDate | date: 'longDate'}}:</h5>
-          <div class="comment-content" [innerHTML]="comment.content | safe: 'html'"></div>
+          <div class="info-box" [innerHTML]="comment.content | safe: 'html'"></div>
         </div>
       </div>
     </div>

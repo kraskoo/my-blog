@@ -64,7 +64,7 @@
             {{post.author.firstName}} {{post.author.lastName}}
           </ng-template>
         </p>
-        <a routerLink="/post/{{post._id}}">{{shortContents[i]}}</a>
+        <a routerLink="/post/{{post._id}}"><div [innerHTML]="shortContents[i] | safe: 'html'"></div></a>
         <ng-template [ngIf]="i !== length - 1">
           <hr />
         </ng-template>

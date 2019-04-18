@@ -29,6 +29,7 @@ module.exports = {
   comment: {
     createdComment: 'Successfully created comment!',
     deletedComment: 'Successfully deleted comment!',
-    editedComment: 'Successfully edited comment!'
+    editedComment: 'Successfully edited comment!',
+    getComment: 'Successfully get comment!'
   }
 };

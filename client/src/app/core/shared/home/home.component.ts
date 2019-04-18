@@ -22,7 +22,7 @@ export class HomeComponent implements OnInit {
         this.posts = data.posts;
         this.posts.forEach(post => {
           const paragraphs = post.content.split(/<[^>]*>/gm).filter(x => x !== '' && x.length > 5);
-          const content = `${paragraphs[0]} ${paragraphs[1]} ${paragraphs[2]} ${paragraphs[3]} ...`;
+          const content = `<p>${paragraphs[0]}</p> <p>${paragraphs[1]} ...</p>`;
           this.shortContents.push(content);
         });
       } else {

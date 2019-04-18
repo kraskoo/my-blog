@@ -1,3 +1,4 @@
 <main id="main" class="container">
-  <div [innerHTML]="info()"></div>
+  <h2 class="header">Information about {{userName()}}</h2>
+  <div class="info-box" [innerHTML]="info() | safe: 'html'"></div>
 </main>
