@@ -56,17 +56,23 @@ export class PostComponent implements OnInit {
   }
 
   postLike() {
-    this.postService.getLike(this.post._id).subscribe(data => {
-      if (data.success) {
-        this.post.likes = this.post.likes ? ++this.post.likes : 1;
-        this.toastr.success(data.message);
-      } else {
-        this.toastr.error(data.message);
-      }
-    });
+    if (this.userService.hasLoggedinUser) {
+      this.postService.getLike(this.post._id).subscribe(data => {
+        if (data.success) {
+          this.post.likes = this.post.likes ? ++this.post.likes : 1;
+          this.toastr.success(data.message);
+        } else {
+          this.toastr.error(data.message);
+        }
+      });
+    }
   }
 
   canShowCommentForm(): boolean {
+    return this.userService.hasLoggedinUser();
+  }
+
+  hasLoggedinUser(): boolean {
     return this.userService.hasLoggedinUser();
   }
 

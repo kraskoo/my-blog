@@ -26,7 +26,8 @@ module.exports = {
     getAll: 'Successfully get all posts!',
     get: (id) => `Successfully get post with id ${id}`,
     searchedPosts: (count) => `Successfully fetched ${count} posts`,
-    addedLike: 'Successfully added like!'
+    addedLike: 'Successfully added like!',
+    archivedPosts: (startDate, endDate) => `Successfully fetched posts in range [${startDate.getDay()}-${startDate.getMonth()}-${endDate.getFullYear()} ..${endDate.getDay()}-${endDate.getMonth()}-${endDate.getFullYear()}]`
   },
   comment: {
     createdComment: 'Successfully created comment!',

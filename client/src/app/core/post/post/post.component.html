@@ -1,28 +1,25 @@
 <main id="main" class="container">
-  <ng-template [ngIf]="isAuthorOnPost">
-    <div class="row">
-      <div class="col-md-10">
-        <h1>{{post.title}}</h1>
-        <small>{{post.creationDate | date: 'longDate'}}</small>
-      </div>
-      <div class="col-md-2" id="author-icons">
+  <div class="row">
+    <div class="col-md-10">
+      <h1>{{post.title}}</h1>
+      <small>{{post.creationDate | date: 'longDate'}}</small>
+    </div>
+    <div class="col-md-2" id="author-icons">
+      <ng-template [ngIf]="isAuthorOnPost">
         <a routerLink="/post/edit/{{post._id}}"><span class="fas fa-edit"></span></a>
         <a routerLink="/post/delete/{{post._id}}"><span class="far fa-trash-alt"></span></a>
-        <button class="thumbs-button" (click)="postLike()">{{post.likes ? post.likes : 0}} <span class="far fa-thumbs-up"></span></button>
-      </div>
+      </ng-template>
+      <ng-template [ngIf]="hasLoggedinUser()">
+        {{post.likes}}
+        <button class="thumbs-button" (click)="postLike()">
+          <span class="far fa-thumbs-up"></span>
+        </button>
+      </ng-template>
+      <ng-template [ngIf]="!hasLoggedinUser()">
+        {{post.likes}} <span class="far fa-thumbs-up"></span>
+      </ng-template>
     </div>
-  </ng-template>
-  <ng-template [ngIf]="!isAuthorOnPost">
-    <div class="row">
-      <div class="col-md-10">
-        <h1>{{post.title}}</h1>
-        <small>{{post.creationDate | date: 'longDate'}}</small>
-      </div>
-      <div class="col-md-2" id="author-icons">
-        <button class="thumbs-button" (click)="postLike()">{{post.likes ? post.likes : 0}} <span class="far fa-thumbs-up"></span></button>
-      </div>
-    </div>
-  </ng-template>
+  </div>
   <div [innerHTML]="post.content | safe: 'html'"></div>
   <ng-template [ngIf]="hasAuthorInfo">
     <hr />

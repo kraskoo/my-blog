@@ -11,6 +11,7 @@ import { DeletePostComponent } from './delete-post/delete-post.component';
 import { PipeModule } from '../pipes/pipe.module';
 import { PostRoutingModule } from './post-routing.module';
 import { SearchedPostsComponent } from './searched-posts/searched-posts.component';
+import { ArchivePostsComponent } from './archive-posts/archive-posts.component';
 
 @NgModule({
   declarations: [
@@ -18,7 +19,8 @@ import { SearchedPostsComponent } from './searched-posts/searched-posts.componen
     CreatePostComponent,
     EditPostComponent,
     DeletePostComponent,
-    SearchedPostsComponent
+    SearchedPostsComponent,
+    ArchivePostsComponent
   ],
   imports: [
     CommonModule,

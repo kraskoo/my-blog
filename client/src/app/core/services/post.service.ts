@@ -5,7 +5,7 @@ import { map } from 'rxjs/operators';
 
 @Injectable({ providedIn: 'root' })
 export class PostService {
-  constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient) { }
 
   createPost(title: string, content: string, author: string, creationDate: Date) {
     return this.http.post<{
@@ -28,6 +28,16 @@ export class PostService {
       message: string,
       posts: Post[]
     }>(`post/search/${searched}`).pipe(
+      map(data => data.posts)
+    );
+  }
+
+  getArchives(month: number, year: number) {
+    return this.http.post<{
+      success: boolean,
+      message: string,
+      posts: Post[]
+    }>(`post/archives/${month}/${year}`, {}).pipe(
       map(data => data.posts)
     );
   }

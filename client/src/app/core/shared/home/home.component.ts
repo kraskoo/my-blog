@@ -1,20 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { ToastrService } from 'ngx-toastr';
-import { PostService } from '../../services/post.service';
+import { ActivatedRoute } from '@angular/router';
 
-import { Post } from '../../models/post.model';
-import { User } from '../../models/user.model';
-import { CommentModel } from '../../models/comment.model';
-
-interface ExtendedPost {
-  _id: string;
-  title: string;
-  content: string;
-  author: User;
-  comments: CommentModel[];
-  creationDate: Date;
-  shortContent: string;
-}
+import { Post, ExtendedPost } from '../../models/post.model';
 
 @Component({
   selector: 'app-home',
@@ -22,31 +9,33 @@ interface ExtendedPost {
   styleUrls: ['./home.component.css']
 })
 export class HomeComponent implements OnInit {
-  posts: Post[];
-  shortContents: string[] = [];
+  posts: ExtendedPost[] = [];
+  topTwoLikesPosts: ExtendedPost[];
+  archives: { key: string, value: string }[] = [];
 
-  constructor(
-    private postService: PostService,
-    private toastr: ToastrService) { }
+  constructor(private route: ActivatedRoute) { }
 
   ngOnInit() {
-    this.postService.getAll().subscribe(data => {
-      if (data.success) {
-        this.posts = data.posts;
-        this.posts.forEach(post => {
-          const paragraphs = post.content.split(/<[^>]*>/gm).filter(x => x !== '' && x.length > 5);
-          const content = `<p>${paragraphs[0]}</p> <p>${paragraphs[1]} ...</p>`;
-          this.shortContents.push(content);
-        });
-      } else {
-        this.toastr.error(data.message);
-      }
+    this.initializeProperties();
+  }
+
+  private initializeProperties() {
+    this.initializePosts();
+    this.initializeTopTwoLikesPosts();
+    this.initializeArchives();
+  }
+
+  private initializePosts() {
+    // tslint:disable-next-line: no-string-literal
+    this.posts = (this.route.snapshot.data['posts'] as Post[]).map(post => {
+      const paragraphs = post.content.split(/<[^>]*>/gm).filter(x => x !== '' && x.length > 5);
+      const content = `<p>${paragraphs[0]}</p> <p>${paragraphs[1]} ...</p>`;
+      return { ...post, shortContent: content };
     });
   }
 
-  get topTwoLikedPosts(): ExtendedPost[] {
-    const posts: ExtendedPost[] = [];
-    this.posts.sort((a, b) => {
+  private initializeTopTwoLikesPosts() {
+    this.topTwoLikesPosts = this.posts.sort((a, b) => {
       const likesDiff = b.likes - a.likes;
       if (likesDiff === 0) {
         const lengthDiff = b.comments.length - a.comments.length;
@@ -58,10 +47,19 @@ export class HomeComponent implements OnInit {
       }
 
       return likesDiff;
-    }).slice(0, 2).forEach(p => {
-      const paragraphs = p.content.split(/<[^>]*>/gm).filter(x => x !== '' && x.length > 5);
-      posts.push({ ...p, shortContent: `<p>${paragraphs[0]}</p> <p>${paragraphs[1]} ...</p>` });
+    }).slice(0, 2);
+  }
+
+  private initializeArchives() {
+    this.posts.forEach(p => {
+      const creationDate = new Date(p.creationDate);
+      const month = creationDate.getMonth();
+      const year = creationDate.getFullYear();
+      const key = `${month}-${year}`;
+      const value = `/post/archives/${month}/${year}`;
+      if (this.archives.filter(a => a.key === key).length === 0) {
+        this.archives.push({ key, value });
+      }
     });
-    return posts;
   }
 }

@@ -8,7 +8,7 @@
   </div>
   <h3>Top 2 liked posts</h3>
   <div class="row mb-2">
-    <div class="col-md-6" *ngFor="let post of topTwoLikedPosts">
+    <div class="col-md-6" *ngFor="let post of topTwoLikesPosts">
       <div class="row no-gutters border rounded overflow-hidden flex-md-row mb-4 shadow-sm h-md-250 position-relative">
         <div class="col p-4 d-flex flex-column position-static">
           <h3 class="mb-0">{{post.title}}</h3>
@@ -25,7 +25,7 @@
       <h3 class="pb-4 mb-4 font-italic border-bottom">
         From the Firehose
       </h3>
-      <div class="blog-post" *ngFor="let post of posts; let i = index; let length = count;">
+      <div class="blog-post" *ngFor="let post of (posts | sortPosts: 'author._id'); let i = index; let length = count;">
         <h2 class="blog-post-title"><a routerLink="/post/{{post._id}}">{{post.title}}</a></h2>
         <p class="blog-post-meta">{{post.creationDate | date: 'longDate'}} by
           <ng-template [ngIf]="post.author.info !== ''">
@@ -36,7 +36,7 @@
           </ng-template>
         </p>
         <a routerLink="/post/{{post._id}}">
-          <div [innerHTML]="shortContents[i] | safe: 'html'"></div>
+          <div [innerHTML]="post.shortContent | safe: 'html'"></div>
         </a>
         <ng-template [ngIf]="i !== length - 1">
           <hr />
@@ -52,18 +52,7 @@
       <div class="p-4">
         <h4 class="font-italic">Archives</h4>
         <ol class="list-unstyled mb-0">
-          <li><a href="#">March 2014</a></li>
-          <li><a href="#">February 2014</a></li>
-          <li><a href="#">January 2014</a></li>
-          <li><a href="#">December 2013</a></li>
-          <li><a href="#">November 2013</a></li>
-          <li><a href="#">October 2013</a></li>
-          <li><a href="#">September 2013</a></li>
-          <li><a href="#">August 2013</a></li>
-          <li><a href="#">July 2013</a></li>
-          <li><a href="#">June 2013</a></li>
-          <li><a href="#">May 2013</a></li>
-          <li><a href="#">April 2013</a></li>
+          <li *ngFor="let archive of archives"><a routerLink="{{archive.value}}">{{archive.key | archiveDate}}</a></li>
         </ol>
       </div>
       <div class="p-4">

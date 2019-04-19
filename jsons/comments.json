@@ -11,4 +11,7 @@
 {"_id":{"$oid":"5cb8a92840d8bb21ac121305"},"content":"test","author":{"$oid":"5cb74ca53dae322d50793d18"},"post":{"$oid":"5cb7682b838b5d205c65a12c"},"creationDate":{"$date":"2019-04-18T16:43:20.529Z"},"__v":0},
 {"_id":{"$oid":"5cb8a96940d8bb21ac121306"},"content":"test","author":{"$oid":"5cb74ca53dae322d50793d18"},"post":{"$oid":"5cb75fd3a2855016985c6c30"},"creationDate":{"$date":"2019-04-18T16:44:25.705Z"},"__v":0},
 {"_id":{"$oid":"5cb8a97e40d8bb21ac121307"},"content":"Ia","author":{"$oid":"5cb74bf43dae322d50793d17"},"post":{"$oid":"5cb75ec1a2855016985c6c2f"},"creationDate":{"$date":"2019-04-18T16:44:46.723Z"},"__v":0},
-{"_id":{"$oid":"5cb8a98f40d8bb21ac121308"},"content":"test","author":{"$oid":"5cb74bf43dae322d50793d17"},"post":{"$oid":"5cb75fd3a2855016985c6c30"},"creationDate":{"$date":"2019-04-18T16:45:03.046Z"},"__v":0}]
+{"_id":{"$oid":"5cb8a98f40d8bb21ac121308"},"content":"test","author":{"$oid":"5cb74bf43dae322d50793d17"},"post":{"$oid":"5cb75fd3a2855016985c6c30"},"creationDate":{"$date":"2019-04-18T16:45:03.046Z"},"__v":0},
+{"_id":{"$oid":"5cb9baf4b370c02c283fa005"},"content":"Comment 1","author":{"$oid":"5cb74ceb3dae322d50793d19"},"post":{"$oid":"5cb7682b838b5d205c65a12c"},"creationDate":{"$date":"2019-04-19T12:11:32.368Z"},"__v":0},
+{"_id":{"$oid":"5cb9bb09b370c02c283fa006"},"content":"Comment 2","author":{"$oid":"5cb74ceb3dae322d50793d19"},"post":{"$oid":"5cb7682b838b5d205c65a12c"},"creationDate":{"$date":"2019-04-19T12:11:53.778Z"},"__v":0},
+{"_id":{"$oid":"5cb9bb17b370c02c283fa007"},"content":"Comment 3","author":{"$oid":"5cb74ceb3dae322d50793d19"},"post":{"$oid":"5cb7682b838b5d205c65a12c"},"creationDate":{"$date":"2019-04-19T12:12:07.129Z"},"__v":0}]

@@ -10,3 +10,14 @@ export interface Post {
   creationDate: Date;
   likes: number;
 }
+
+export interface ExtendedPost {
+  _id: string;
+  title: string;
+  content: string;
+  author: User;
+  comments: CommentModel[];
+  creationDate: Date;
+  likes: number;
+  shortContent: string;
+}

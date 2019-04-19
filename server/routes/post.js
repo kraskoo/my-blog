@@ -173,14 +173,7 @@ router.get('/like/:id', (req, res) => {
   if (params) {
     const { id } = params;
     Post.findById(id).then(post => {
-      const postPOJO = post.toObject();
-      const hasLikeProperty = postPOJO.hasOwnProperty('likes');
-      if (hasLikeProperty) {
-        post.likes++;
-      } else {
-        post.likes = 1;  
-      }
-      
+      ++post.likes;
       post.save().then(() => {
         return res.status(200).json({
           success: true,
@@ -205,5 +198,41 @@ router.get('/like/:id', (req, res) => {
     });
   }
 });
+
+router.post('/archives/:month/:year', (req, res) => {
+  const params = req.params;
+  if (params) {
+    let { month, year } = params;
+    month = Number(month);
+    year = Number(year);
+    const startDate = new Date(year, month, 1);
+    const endDate = new Date(year, month, getDaysOfMonth(year, month));
+    Post.find({ creationDate: { $gte: startDate, $lte: endDate } }).populate('author').then(posts => {
+      return res.status(200).json({
+        success: true,
+        message: messages.archivedPosts(startDate, endDate),
+        posts
+      });
+    }).catch(err => {
+      return res.status(400).json({
+        success: false,
+        message: err.message
+      });
+    });
+  } else {
+    return res.status(400).json({
+      success: false,
+      message: commonMessages.requiredParametes
+    });
+  }
+});
+
+function getDaysOfMonth(year, month) {
+  const oneDay = 24 * 60 * 60 * 1000;
+  const monthStart = new Date(year, month, 1);
+  const monthEnd = new Date(year, month + 1, 1);
+  const days = Math.round((monthEnd - monthStart) / (oneDay));
+  return days;
+}
 
 module.exports = router;
