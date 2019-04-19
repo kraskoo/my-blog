@@ -38,6 +38,13 @@ export class PostService {
       map(data => data['post']));
   }
 
+  getLike(id: string) {
+    return this.http.get<{
+      success: boolean,
+      message: string
+    }>(`post/like/${id}`);
+  }
+
   edit(id: string, title: string, content: string, creationDate: Date) {
     return this.http.post<{
       success: boolean,

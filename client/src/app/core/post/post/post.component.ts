@@ -4,6 +4,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { AngularEditorConfig } from '@kolkov/angular-editor';
 import { ToastrService } from 'ngx-toastr';
 
+import { PostService } from '../../services/post.service';
 import { CommentService } from '../../services/comment.service';
 import { Post } from '../../models/post.model';
 import { UserService } from '../../services/user.service';
@@ -35,6 +36,7 @@ export class PostComponent implements OnInit {
     private userService: UserService,
     private router: Router,
     private toastr: ToastrService,
+    private postService: PostService,
     private commentService: CommentService) { }
 
   get isAuthorOnPost(): boolean {
@@ -51,6 +53,17 @@ export class PostComponent implements OnInit {
     // tslint:disable-next-line: no-string-literal
     this.post = this.route.snapshot.data['post'];
     this.hasAuthorInfo = this.post.author.info !== '';
+  }
+
+  postLike() {
+    this.postService.getLike(this.post._id).subscribe(data => {
+      if (data.success) {
+        this.post.likes = this.post.likes ? ++this.post.likes : 1;
+        this.toastr.success(data.message);
+      } else {
+        this.toastr.error(data.message);
+      }
+    });
   }
 
   canShowCommentForm(): boolean {

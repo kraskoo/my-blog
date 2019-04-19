@@ -19,3 +19,8 @@
   color: black;
   padding-right: 20px;
 }
+
+.thumbs-button {
+  border: none;
+  background: transparent;
+}

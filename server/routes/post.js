@@ -168,4 +168,42 @@ router.get('/search/:search', (req, res) => {
   }
 });
 
+router.get('/like/:id', (req, res) => {
+  const params = req.params;
+  if (params) {
+    const { id } = params;
+    Post.findById(id).then(post => {
+      const postPOJO = post.toObject();
+      const hasLikeProperty = postPOJO.hasOwnProperty('likes');
+      if (hasLikeProperty) {
+        post.likes++;
+      } else {
+        post.likes = 1;  
+      }
+      
+      post.save().then(() => {
+        return res.status(200).json({
+          success: true,
+          message: messages.addedLike
+        });
+      }).catch(err => {
+        return res.status(400).json({
+          success: false,
+          message: err.message
+        });
+      });
+    }).catch(err => {
+      return res.status(400).json({
+        success: false,
+        message: err.message
+      });
+    });
+  } else {
+    return res.status(400).json({
+      success: false,
+      message: commonMessages.requiredParametes
+    });
+  }
+});
+
 module.exports = router;

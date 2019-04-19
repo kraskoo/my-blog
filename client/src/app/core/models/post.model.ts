@@ -8,4 +8,5 @@ export interface Post {
   author: User;
   comments: CommentModel[];
   creationDate: Date;
+  likes: number;
 }

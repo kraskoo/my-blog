@@ -8,12 +8,20 @@
       <div class="col-md-2" id="author-icons">
         <a routerLink="/post/edit/{{post._id}}"><span class="fas fa-edit"></span></a>
         <a routerLink="/post/delete/{{post._id}}"><span class="far fa-trash-alt"></span></a>
+        <button class="thumbs-button" (click)="postLike()">{{post.likes ? post.likes : 0}} <span class="far fa-thumbs-up"></span></button>
       </div>
     </div>
   </ng-template>
   <ng-template [ngIf]="!isAuthorOnPost">
-    <h1>{{post.title}}</h1>
-    <small>{{post.creationDate | date: 'longDate'}}</small>
+    <div class="row">
+      <div class="col-md-10">
+        <h1>{{post.title}}</h1>
+        <small>{{post.creationDate | date: 'longDate'}}</small>
+      </div>
+      <div class="col-md-2" id="author-icons">
+        <button class="thumbs-button" (click)="postLike()">{{post.likes ? post.likes : 0}} <span class="far fa-thumbs-up"></span></button>
+      </div>
+    </div>
   </ng-template>
   <div [innerHTML]="post.content | safe: 'html'"></div>
   <ng-template [ngIf]="hasAuthorInfo">
