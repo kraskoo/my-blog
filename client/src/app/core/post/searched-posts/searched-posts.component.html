@@ -1,0 +1,42 @@
+<main id="main" class="container">
+  <h1>Searched results for `{{search}}`</h1>
+  <div class="row">
+    <div class="col-md-8 blog-main">
+      <h3 class="pb-4 mb-4 font-italic border-bottom">
+        From the Firehose
+      </h3>
+      <div class="blog-post" *ngFor="let post of posts; let i = index; let length = count;">
+        <h2 class="blog-post-title"><a routerLink="/post/{{post._id}}">{{post.title}}</a></h2>
+        <p class="blog-post-meta">{{post.creationDate | date: 'longDate'}} by
+          <ng-template [ngIf]="post.author.info !== ''">
+            <a routerLink="/auth/info/{{post.author._id}}">{{post.author.firstName}} {{post.author.lastName}}</a>
+          </ng-template>
+          <ng-template [ngIf]="post.author.info === ''">
+            {{post.author.firstName}} {{post.author.lastName}}
+          </ng-template>
+        </p>
+        <a routerLink="/post/{{post._id}}">
+          <div [innerHTML]="shortContents[i] | safe: 'html'"></div>
+        </a>
+        <ng-template [ngIf]="i !== length - 1">
+          <hr />
+        </ng-template>
+      </div>
+    </div>
+    <aside class="col-md-4 blog-sidebar">
+      <div class="p-4 mb-3 bg-light rounded">
+        <h4 class="font-italic">About</h4>
+        <p class="mb-0">Etiam porta <em>sem malesuada magna</em> mollis euismod. Cras mattis consectetur purus sit amet
+          fermentum. Aenean lacinia bibendum nulla sed consectetur.</p>
+      </div>
+      <div class="p-4">
+        <h4 class="font-italic">Elsewhere</h4>
+        <ol class="list-unstyled">
+          <li><a href="https://github.com/kraskoo/">GitHub</a></li>
+          <li><a href="https://twitter.com/">Twitter</a></li>
+          <li><a href="https://facebook.com">Facebook</a></li>
+        </ol>
+      </div>
+    </aside>
+  </div>
+</main>

@@ -1,6 +1,8 @@
-import { Component } from '@angular/core';
-import { UserService } from '../../services/user.service';
+import { Component, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
+import { NgForm } from '@angular/forms';
+
+import { UserService } from '../../services/user.service';
 
 @Component({
   selector: 'app-navbar',
@@ -8,9 +10,11 @@ import { Router } from '@angular/router';
   styleUrls: ['./navbar.component.css']
 })
 export class NavbarComponent {
+  @ViewChild('f') form: NgForm;
+
   constructor(
     private userService: UserService,
-    private router: Router) {}
+    private router: Router) { }
 
   get hasLoggedinUser(): boolean {
     return this.userService.hasLoggedinUser();
@@ -26,6 +30,12 @@ export class NavbarComponent {
 
   logout() {
     localStorage.removeItem('user');
-    this.router.navigate([ '/' ]);
+    this.router.navigate(['/']);
+  }
+
+  onSubmit() {
+    const search = this.form.controls.search.value;
+    this.form.reset();
+    this.router.navigate([`/post/search/${search}`]);
   }
 }

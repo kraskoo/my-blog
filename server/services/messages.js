@@ -24,7 +24,8 @@ module.exports = {
     editedPost: 'Successfully edited post!',
     deletedPost: 'Successfully delete post!',
     getAll: 'Successfully get all posts!',
-    get: (id) => `Successfully get post with id ${id}`
+    get: (id) => `Successfully get post with id ${id}`,
+    searchedPosts: (count) => `Successfully fetched ${count} posts`
   },
   comment: {
     createdComment: 'Successfully created comment!',

@@ -10,13 +10,15 @@ import { EditPostComponent } from './edit-post/edit-post.component';
 import { DeletePostComponent } from './delete-post/delete-post.component';
 import { PipeModule } from '../pipes/pipe.module';
 import { PostRoutingModule } from './post-routing.module';
+import { SearchedPostsComponent } from './searched-posts/searched-posts.component';
 
 @NgModule({
   declarations: [
     PostComponent,
     CreatePostComponent,
     EditPostComponent,
-    DeletePostComponent
+    DeletePostComponent,
+    SearchedPostsComponent
   ],
   imports: [
     CommonModule,

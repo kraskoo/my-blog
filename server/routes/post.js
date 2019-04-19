@@ -134,4 +134,38 @@ router.post('/delete/:id', (req, res) => {
   });
 });
 
+router.get('/search/:search', (req, res) => {
+  const params = req.params;
+  if (params) {
+    const { search } = params;
+    Post.find({ content: { $regex: search, $options: 'i' } })
+      .populate('author')
+      .populate({
+        path: 'comments',
+        model: 'Comment',
+        populate: {
+          path: 'author',
+          model: 'User'
+        }
+      })
+      .then(posts => {
+        return res.status(200).json({
+          success: true,
+          message: messages.searchedPosts(posts.length),
+          posts
+        });
+      }).catch(error => {
+        return res.status(400).json({
+          success: false,
+          message: error.message
+        });
+      })
+  } else {
+    return res.status(400).json({
+      success: false,
+      message: commonMessages.requiredParametes
+    });
+  }
+});
+
 module.exports = router;

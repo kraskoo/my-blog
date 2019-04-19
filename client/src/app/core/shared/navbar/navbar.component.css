@@ -2,3 +2,13 @@
   width: 50px;
   border-radius: 50%;
 }
+
+.navbar {
+  -webkit-box-shadow: 0px 2px 3px 1px rgba(175,175,175,0.6);
+	-moz-box-shadow: 0px 2px 3px 1px rgba(175,175,175,0.6);
+	box-shadow: 0px 2px 3px 1px rgba(175,175,175,0.6);
+}
+
+#search-field {
+  border-left: 1px solid #ced4da !important;
+}

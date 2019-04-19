@@ -6,8 +6,8 @@ module.exports = {
     jwtSecretKey: 'my-bl0g'
   },
   requirements: {
-    minFirstNameLength: 4,
-    minLastNameLength: 4,
+    minFirstNameLength: 3,
+    minLastNameLength: 3,
     minPasswordLength: 5
   },
   development: {

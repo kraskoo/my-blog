@@ -22,6 +22,16 @@ export class PostService {
     }>('post/all');
   }
 
+  getSearched(searched: string) {
+    return this.http.get<{
+      success: boolean,
+      message: string,
+      posts: Post[]
+    }>(`post/search/${searched}`).pipe(
+      map(data => data.posts)
+    );
+  }
+
   getById(id: string) {
     return this.http.get<Post>(`post/get/${id}`).pipe(
       // tslint:disable-next-line: no-string-literal

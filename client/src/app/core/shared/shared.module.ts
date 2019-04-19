@@ -7,6 +7,7 @@ import { NavbarComponent } from './navbar/navbar.component';
 import { FooterComponent } from './footer/footer.component';
 import { HomeComponent } from './home/home.component';
 import { PipeModule } from '../pipes/pipe.module';
+import { FormsModule } from '@angular/forms';
 
 @NgModule({
   declarations: [
@@ -17,6 +18,7 @@ import { PipeModule } from '../pipes/pipe.module';
   imports: [
     CommonModule,
     AppRoutingModule,
+    FormsModule,
     PipeModule
   ],
   exports: [
