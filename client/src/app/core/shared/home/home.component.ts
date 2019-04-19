@@ -55,11 +55,12 @@ export class HomeComponent implements OnInit {
       const creationDate = new Date(p.creationDate);
       const month = creationDate.getMonth();
       const year = creationDate.getFullYear();
-      const key = `${month}-${year}`;
+      const key = `${`${month}`.length === 1 ? `0${month}` : month}-${year}`;
       const value = `/post/archives/${month}/${year}`;
       if (this.archives.filter(a => a.key === key).length === 0) {
         this.archives.push({ key, value });
       }
     });
+    this.archives = this.archives.sort((a, b) => a.key.localeCompare(b.key));
   }
 }
