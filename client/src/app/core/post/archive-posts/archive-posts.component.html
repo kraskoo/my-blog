@@ -16,7 +16,7 @@
             </ng-template>
           </p>
           <a routerLink="/post/{{post._id}}">
-            <div [innerHTML]="shortContents[i] | safe: 'html'"></div>
+            <div [innerHTML]="post.shortContent | safe: 'html'"></div>
           </a>
           <ng-template [ngIf]="i !== length - 1">
             <hr />

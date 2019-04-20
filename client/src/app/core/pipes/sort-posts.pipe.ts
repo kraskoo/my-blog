@@ -1,5 +1,5 @@
 import { Pipe, PipeTransform } from '@angular/core';
-import { Post, ExtendedPost } from '../models/post.model';
+import { ExtendedPost } from '../models/post.model';
 
 @Pipe({ name: 'sortPosts', pure: false })
 export class SortPostsPipe implements PipeTransform {

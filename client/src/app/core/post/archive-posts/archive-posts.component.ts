@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 
-import { Post } from '../../models/post.model';
+import { Post, ExtendedPost } from '../../models/post.model';
 import { ActivatedRoute } from '@angular/router';
 
 @Component({
@@ -10,8 +10,7 @@ import { ActivatedRoute } from '@angular/router';
 })
 export class ArchivePostsComponent implements OnInit {
   date = '';
-  posts: Post[];
-  shortContents: string[] = [];
+  posts: ExtendedPost[];
 
   constructor(private route: ActivatedRoute) { }
 
@@ -19,11 +18,10 @@ export class ArchivePostsComponent implements OnInit {
     // tslint:disable-next-line: no-string-literal
     this.date = `${this.route.snapshot.params['month']}-${this.route.snapshot.params['year']}`;
     // tslint:disable-next-line: no-string-literal
-    this.posts = this.route.snapshot.data['posts'];
-    this.posts.forEach(post => {
+    this.posts = (this.route.snapshot.data['posts'] as Post[]).map(post => {
       const paragraphs = post.content.split(/<[^>]*>/gm).filter(x => x !== '' && x.length > 5);
       const content = `<p>${paragraphs[0]}</p> <p>${paragraphs[1]} ...</p>`;
-      this.shortContents.push(content);
+      return { ...post, shortContent: content };
     });
   }
 }

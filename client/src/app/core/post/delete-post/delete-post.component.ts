@@ -6,6 +6,7 @@ import { PostService } from '../../services/post.service';
 import { UserService } from '../../services/user.service';
 import { Router, ActivatedRoute } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
+import { angularEditorConfig } from '../../services/app.services';
 
 @Component({
   selector: 'app-delete-post',
@@ -19,14 +20,7 @@ export class DeletePostComponent implements OnInit, DoCheck {
   title = '';
   htmlContent = '';
   date: Date;
-  config: AngularEditorConfig = {
-    editable: false,
-    spellcheck: true,
-    height: '15rem',
-    minHeight: '25rem',
-    placeholder: 'Enter text here...',
-    translate: 'no'
-  };
+  config: AngularEditorConfig = { ...angularEditorConfig, editable: false };
 
   constructor(
     private postService: PostService,

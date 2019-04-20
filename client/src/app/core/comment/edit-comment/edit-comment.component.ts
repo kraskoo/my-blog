@@ -7,6 +7,7 @@ import { ToastrService } from 'ngx-toastr';
 import { CommentModel } from '../../models/comment.model';
 import { CommentService } from '../../services/comment.service';
 import { UserService } from '../../services/user.service';
+import { angularEditorConfig } from '../../services/app.services';
 
 @Component({
   selector: 'app-edit-comment',
@@ -18,14 +19,7 @@ export class EditCommentComponent implements OnInit, DoCheck {
   comment: CommentModel;
 
   htmlContent = '';
-  config: AngularEditorConfig = {
-    editable: true,
-    spellcheck: true,
-    height: '15rem',
-    minHeight: '25rem',
-    placeholder: 'Enter text here...',
-    translate: 'no'
-  };
+  config: AngularEditorConfig = angularEditorConfig;
 
   constructor(
     private commentService: CommentService,

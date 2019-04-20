@@ -9,6 +9,7 @@ import { CommentService } from '../../services/comment.service';
 import { Post } from '../../models/post.model';
 import { UserService } from '../../services/user.service';
 import { CommentModel } from '../../models/comment.model';
+import { angularEditorConfig } from '../../services/app.services';
 
 @Component({
   selector: 'app-post',
@@ -21,15 +22,7 @@ export class PostComponent implements OnInit {
   hasAuthorInfo = false;
   htmlContent = '';
 
-  config: AngularEditorConfig = {
-    editable: true,
-    spellcheck: true,
-    height: '10rem',
-    minHeight: '10rem',
-    placeholder: 'Enter text here...',
-    translate: 'no',
-    uploadUrl: 'http://localhost:65535/upload/images'
-  };
+  config: AngularEditorConfig = { ...angularEditorConfig, height: '10rem', minHeight: '10rem' };
 
   constructor(
     private route: ActivatedRoute,
@@ -59,17 +52,13 @@ export class PostComponent implements OnInit {
     if (this.userService.hasLoggedinUser) {
       this.postService.getLike(this.post._id).subscribe(data => {
         if (data.success) {
-          this.post.likes = this.post.likes ? ++this.post.likes : 1;
+          ++this.post.likes;
           this.toastr.success(data.message);
         } else {
           this.toastr.error(data.message);
         }
       });
     }
-  }
-
-  canShowCommentForm(): boolean {
-    return this.userService.hasLoggedinUser();
   }
 
   hasLoggedinUser(): boolean {

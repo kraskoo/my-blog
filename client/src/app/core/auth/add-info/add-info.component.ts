@@ -3,8 +3,10 @@ import { NgForm } from '@angular/forms';
 import { AngularEditorConfig } from '@kolkov/angular-editor';
 import { Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
+
 import { UserService } from '../../services/user.service';
 import { AuthService } from '../../services/auth.service';
+import { angularEditorConfig } from '../../services/app.services';
 
 @Component({
   selector: 'app-add-info',
@@ -14,15 +16,7 @@ import { AuthService } from '../../services/auth.service';
 export class AddInfoComponent implements OnInit {
   @ViewChild('f') form: NgForm;
   htmlContent = '';
-  config: AngularEditorConfig = {
-    editable: true,
-    spellcheck: true,
-    height: '10rem',
-    minHeight: '10rem',
-    placeholder: 'Enter text here...',
-    translate: 'no',
-    uploadUrl: 'http://localhost:65535/upload/images'
-  };
+  config: AngularEditorConfig = { ...angularEditorConfig, height: '15rem', minHeight: '25rem' };
 
   constructor(
     private userService: UserService,

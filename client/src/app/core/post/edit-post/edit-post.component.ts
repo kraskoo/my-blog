@@ -3,6 +3,7 @@ import { NgForm } from '@angular/forms';
 import { Router, ActivatedRoute } from '@angular/router';
 import { AngularEditorConfig } from '@kolkov/angular-editor';
 import { ToastrService } from 'ngx-toastr';
+import { angularEditorConfig } from '../../services/app.services';
 
 import { PostService } from '../../services/post.service';
 import { UserService } from '../../services/user.service';
@@ -21,15 +22,7 @@ export class EditPostComponent implements OnInit, DoCheck {
   title = '';
   htmlContent = '';
   date: Date;
-  config: AngularEditorConfig = {
-    editable: true,
-    spellcheck: true,
-    height: '15rem',
-    minHeight: '25rem',
-    placeholder: 'Enter text here...',
-    translate: 'no',
-    uploadUrl: 'http://localhost:65535/upload/images'
-  };
+  config: AngularEditorConfig = angularEditorConfig;
 
   constructor(
     private postService: PostService,

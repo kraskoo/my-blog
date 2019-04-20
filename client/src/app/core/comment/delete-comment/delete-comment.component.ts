@@ -7,6 +7,7 @@ import { ToastrService } from 'ngx-toastr';
 import { CommentModel } from '../../models/comment.model';
 import { CommentService } from '../../services/comment.service';
 import { UserService } from '../../services/user.service';
+import { angularEditorConfig } from '../../services/app.services';
 
 @Component({
   selector: 'app-delete-comment',
@@ -18,14 +19,7 @@ export class DeleteCommentComponent implements OnInit, DoCheck {
   comment: CommentModel;
 
   htmlContent = '';
-  config: AngularEditorConfig = {
-    editable: false,
-    spellcheck: true,
-    height: '15rem',
-    minHeight: '25rem',
-    placeholder: 'Enter text here...',
-    translate: 'no'
-  };
+  config: AngularEditorConfig = {  ...angularEditorConfig, editable: false };
 
   constructor(
     private commentService: CommentService,

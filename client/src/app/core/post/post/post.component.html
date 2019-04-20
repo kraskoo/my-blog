@@ -64,7 +64,7 @@
     </ng-template>
   </div>
   <hr />
-  <ng-template [ngIf]="canShowCommentForm()">
+  <ng-template [ngIf]="hasLoggedinUser()">
     <h3>Type comment</h3>
     <form #f="ngForm" (ngSubmit)="onSubmit()">
       <div class="form-group">

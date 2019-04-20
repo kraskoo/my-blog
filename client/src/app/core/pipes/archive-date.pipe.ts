@@ -9,8 +9,8 @@ export class ArchiveDatePipe implements PipeTransform {
     return `${this.getMonthAsWord(Number(value[0]))} ${value[1]}`;
   }
 
-  private getMonthAsWord(date: number) {
-    switch (date) {
+  private getMonthAsWord(month: number) {
+    switch (month) {
       case 0: return 'January';
       case 1: return 'February';
       case 2: return 'March';
