@@ -2,9 +2,6 @@
     <h1>Posts in {{date | archiveDate}}</h1>
     <div class="row">
       <div class="col-md-8 blog-main">
-        <h3 class="pb-4 mb-4 font-italic border-bottom">
-          From the Firehose
-        </h3>
         <div class="blog-post" *ngFor="let post of posts; let i = index; let length = count;">
           <h2 class="blog-post-title"><a routerLink="/post/{{post._id}}">{{post.title}}</a></h2>
           <p class="blog-post-meta">{{post.creationDate | date: 'longDate'}} by
