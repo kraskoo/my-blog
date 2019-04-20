@@ -7,6 +7,7 @@ import { AngularEditorConfig } from '@kolkov/angular-editor';
 
 import { PostService } from '../../services/post.service';
 import { UserService } from '../../services/user.service';
+import { angularEditorConfig } from '../../services/app.services';
 
 @Component({
   selector: 'app-create-post',
@@ -20,18 +21,10 @@ export class CreatePostComponent {
     private postService: PostService,
     private userService: UserService,
     private router: Router,
-    private toastr: ToastrService) {}
+    private toastr: ToastrService) { }
 
   htmlContent = '';
-  config: AngularEditorConfig = {
-    editable: true,
-    spellcheck: true,
-    height: '15rem',
-    minHeight: '25rem',
-    placeholder: 'Enter text here...',
-    translate: 'no',
-    uploadUrl: 'http://localhost:65535/upload/images'
-  };
+  config: AngularEditorConfig = angularEditorConfig;
 
   get hasValidValue(): boolean {
     return this.htmlContent.length > 50;
@@ -51,7 +44,7 @@ export class CreatePostComponent {
       const creationDate = this.form.controls.date.value;
       this.postService.createPost(title, content, author, creationDate).subscribe(data => {
         if (data.success) {
-          this.router.navigate([ '/' ]);
+          this.router.navigate(['/']);
           this.toastr.success(data.message);
         } else {
           this.toastr.error(data.message);
