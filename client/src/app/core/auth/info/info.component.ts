@@ -10,8 +10,7 @@ import { ActivatedRoute } from '@angular/router';
 export class InfoComponent implements OnInit {
   user: User;
 
-  constructor(
-    private route: ActivatedRoute) {}
+  constructor(private route: ActivatedRoute) {}
 
   ngOnInit() {
     // tslint:disable-next-line: no-string-literal
