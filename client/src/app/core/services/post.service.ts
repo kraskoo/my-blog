@@ -33,11 +33,11 @@ export class PostService {
   }
 
   getArchives(month: number, year: number) {
-    return this.http.post<{
+    return this.http.get<{
       success: boolean,
       message: string,
       posts: Post[]
-    }>(`post/archives/${month}/${year}`, {}).pipe(
+    }>(`post/archives/${month}/${year}`).pipe(
       map(data => data.posts)
     );
   }

@@ -14,8 +14,8 @@ import { SearchedPostsComponent } from './searched-posts/searched-posts.componen
 import { ArchivePostsComponent } from './archive-posts/archive-posts.component';
 
 const postRoutes: Routes = [
-  { path: 'create', component: CreatePostComponent, canActivate: [AdminGuard] },
   { path: ':id', component: PostComponent, resolve: { post: PostResolver } },
+  { path: 'create', component: CreatePostComponent, canActivate: [AdminGuard] },
   { path: 'edit/:id', component: EditPostComponent, resolve: { post: PostResolver } },
   { path: 'delete/:id', component: DeletePostComponent, resolve: { post: PostResolver } },
   { path: 'search/:search', component: SearchedPostsComponent, resolve: { posts: SearchedPostsResolver } },

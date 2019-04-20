@@ -16,7 +16,7 @@ import { angularEditorConfig } from '../../services/app.services';
 export class AddInfoComponent implements OnInit {
   @ViewChild('f') form: NgForm;
   htmlContent = '';
-  config: AngularEditorConfig = { ...angularEditorConfig, height: '15rem', minHeight: '25rem' };
+  config: AngularEditorConfig = angularEditorConfig;
 
   constructor(
     private userService: UserService,

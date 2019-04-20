@@ -8,12 +8,14 @@ import { NavbarComponent } from './navbar/navbar.component';
 import { FooterComponent } from './footer/footer.component';
 import { HomeComponent } from './home/home.component';
 import { PipeModule } from '../pipes/pipe.module';
+import { AboutComponent } from './about/about.component';
 
 @NgModule({
   declarations: [
     NavbarComponent,
     FooterComponent,
-    HomeComponent
+    HomeComponent,
+    AboutComponent
   ],
   imports: [
     CommonModule,
