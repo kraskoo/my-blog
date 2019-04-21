@@ -31,7 +31,7 @@
         <div class="media-body">
           <h6 class="mt-0">{{post.author.firstName}} {{post.author.lastName}}
           </h6>
-          {{post.author.info}}
+          <div [innerHTML]="post.author.info | safe: 'html'"></div>
         </div>
       </div>
     </div>

@@ -12,3 +12,7 @@
 #search-field {
   border-left: 1px solid #ced4da !important;
 }
+
+.navbar-brand {
+  padding-top: 0 !important;
+}
