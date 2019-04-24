@@ -52,7 +52,7 @@ cd client && ng s --open
 * [Bootstrap](https://github.com/twbs/bootstrap) - front-end web framework
 
 ## Addons
-* jsons - exported collections as json files for categories and devices
+* jsons - exported collections as json files for users, posts and comments
 	* Importing: Just start ```populate.cmd``` file under Windows, sorry about Linux users
 
 ## Application structure
