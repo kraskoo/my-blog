@@ -199,7 +199,7 @@ router.get('/like/:id', (req, res) => {
   }
 });
 
-router.post('/archives/:month/:year', (req, res) => {
+router.get('/archives/:month/:year', (req, res) => {
   const params = req.params;
   if (params) {
     let { month, year } = params;
