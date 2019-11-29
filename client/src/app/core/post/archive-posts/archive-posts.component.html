@@ -4,7 +4,7 @@
       <div class="col-md-8 blog-main">
         <div class="inner-content" *ngFor="let post of posts; let i = index; let length = count;">
           <h2 class="blog-post-title"><a routerLink="/post/{{post._id}}">{{post.title}}</a></h2>
-          <p class="blog-post-content-meta">{{post.creationDate | date: 'longDate'}} by
+          <p class="blog-post-meta">{{post.creationDate | date: 'longDate'}} by
             <ng-template [ngIf]="post.author.info !== ''">
               <a routerLink="/auth/info/{{post.author._id}}">{{post.author.firstName}} {{post.author.lastName}}</a>
             </ng-template>
