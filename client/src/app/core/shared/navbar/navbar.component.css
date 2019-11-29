@@ -6,7 +6,17 @@
 .navbar {
   -webkit-box-shadow: 0px 2px 3px 1px rgba(175,175,175,0.6);
 	-moz-box-shadow: 0px 2px 3px 1px rgba(175,175,175,0.6);
-	box-shadow: 0px 2px 3px 1px rgba(175,175,175,0.6);
+  box-shadow: 0px 2px 3px 1px rgba(175,175,175,0.6);
+  background-color: cadetblue !important;
+  color: whitesmoke;
+}
+
+.navbar-brand, .nav-link, .btn.btn-outline-success, .dropdown-item:hover {
+  color: whitesmoke !important;
+}
+
+.dropdown-item:hover {
+  background-color: #007bff;
 }
 
 #search-field {
