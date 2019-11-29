@@ -10,9 +10,9 @@ const routes: Routes = [
   { path: '', pathMatch: 'full', redirectTo: 'home' },
   { path: 'home', component: HomeComponent, resolve: { posts: HomeResolver } },
   { path: 'about', component: AboutComponent },
-  { path: 'auth', loadChildren: './core/auth/auth.module#AuthModule' },
-  { path: 'post', loadChildren: './core/post/post.module#PostModule' },
-  { path: 'comment', loadChildren: './core/comment/comment.module#CommentModule' }
+  { path: 'auth', loadChildren: () => import('./core/auth/auth.module').then(m => m.AuthModule) },
+  { path: 'post', loadChildren: () => import('./core/post/post.module').then(m => m.PostModule) },
+  { path: 'comment', loadChildren: () => import('./core/comment/comment.module').then(m => m.CommentModule) }
 ];
 
 @NgModule({

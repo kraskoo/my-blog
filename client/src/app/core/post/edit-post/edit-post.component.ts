@@ -16,7 +16,7 @@ import { Post } from '../../models/post.model';
   styleUrls: ['./edit-post.component.css']
 })
 export class EditPostComponent implements OnInit, DoCheck {
-  @ViewChild('f') form: NgForm;
+  @ViewChild('f', { static: true }) form: NgForm;
 
   post: Post;
   title = '';

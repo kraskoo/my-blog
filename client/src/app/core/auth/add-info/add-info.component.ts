@@ -14,7 +14,7 @@ import { angularEditorConfig } from '../../services/app.services';
   styleUrls: ['./add-info.component.css']
 })
 export class AddInfoComponent implements OnInit {
-  @ViewChild('f') form: NgForm;
+  @ViewChild('f', { static: true }) form: NgForm;
   htmlContent = '';
   config: AngularEditorConfig = angularEditorConfig;
 

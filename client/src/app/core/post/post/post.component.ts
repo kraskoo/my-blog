@@ -17,7 +17,7 @@ import { angularEditorConfig } from '../../services/app.services';
   styleUrls: ['./post.component.css']
 })
 export class PostComponent implements OnInit {
-  @ViewChild('f') form: NgForm;
+  @ViewChild('f', { static: false }) form: NgForm;
   post: Post;
   hasAuthorInfo = false;
   htmlContent = '';

@@ -12,7 +12,7 @@ import { AuthService } from '../../services/auth.service';
   styleUrls: ['./set-admin-role.component.css']
 })
 export class SetAdminRoleComponent implements OnInit {
-  @ViewChild('f') form: NgForm;
+  @ViewChild('f', { static: true }) form: NgForm;
   users$: Observable<{ _id: string, firstName: string, lastName: string }[]>;
 
   constructor(

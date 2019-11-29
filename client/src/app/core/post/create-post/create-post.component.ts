@@ -15,7 +15,7 @@ import { angularEditorConfig } from '../../services/app.services';
   styleUrls: ['./create-post.component.css']
 })
 export class CreatePostComponent {
-  @ViewChild('f') form: NgForm;
+  @ViewChild('f', { static: true }) form: NgForm;
 
   constructor(
     private postService: PostService,

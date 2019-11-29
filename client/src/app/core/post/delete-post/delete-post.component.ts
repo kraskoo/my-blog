@@ -14,7 +14,7 @@ import { angularEditorConfig } from '../../services/app.services';
   styleUrls: ['./delete-post.component.css']
 })
 export class DeletePostComponent implements OnInit, DoCheck {
-  @ViewChild('f') form: NgForm;
+  @ViewChild('f', { static: true }) form: NgForm;
 
   post: Post;
   title = '';

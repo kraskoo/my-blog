@@ -15,7 +15,7 @@ import { angularEditorConfig } from '../../services/app.services';
   styleUrls: ['./delete-comment.component.css']
 })
 export class DeleteCommentComponent implements OnInit, DoCheck {
-  @ViewChild('f') form: NgForm;
+  @ViewChild('f', { static: true }) form: NgForm;
   comment: CommentModel;
 
   htmlContent = '';

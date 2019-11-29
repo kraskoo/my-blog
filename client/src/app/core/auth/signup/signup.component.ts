@@ -12,7 +12,7 @@ import { UserService } from '../../services/user.service';
   styleUrls: ['./signup.component.css']
 })
 export class SignupComponent {
-  @ViewChild('f') form: NgForm;
+  @ViewChild('f', { static: true }) form: NgForm;
 
   constructor(
     private authService: AuthService,

@@ -12,7 +12,7 @@ import { UserService } from '../../services/user.service';
   styleUrls: ['./change-profile-picture.component.css']
 })
 export class ChangeProfilePictureComponent {
-  @ViewChild('f') form: NgForm;
+  @ViewChild('f', { static: true }) form: NgForm;
   private file;
   private fileName;
 
