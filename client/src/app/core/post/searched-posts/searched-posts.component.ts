@@ -1,10 +1,10 @@
-import { Component, OnInit, OnDestroy } from '@angular/core';
-
-import { Post } from '../../models/post.model';
+import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Params } from '@angular/router';
-import { switchMap } from 'rxjs/operators';
-import { PostService } from '../../services/post.service';
 import { Observable } from 'rxjs';
+import { switchMap } from 'rxjs/operators';
+
+import { PostService } from '../../services/post.service';
+import { Post } from '../../models/post.model';
 
 @Component({
   selector: 'app-searched-posts',

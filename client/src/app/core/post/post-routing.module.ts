@@ -3,7 +3,6 @@ import { NgModule } from '@angular/core';
 
 import { AdminGuard } from '../guards/admin.guard';
 import PostResolver from '../resolvers/post.resolver';
-import SearchedPostsResolver from '../resolvers/searched-posts.resolver';
 import ArchivePostsResolver from '../resolvers/archive-posts.resolver';
 
 import { CreatePostComponent } from './create-post/create-post.component';
