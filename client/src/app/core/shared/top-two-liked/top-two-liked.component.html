@@ -1,0 +1,7 @@
+<h3>Top 2 liked posts</h3>
+<hr />
+<div class="row mb-2 flex">
+  <div class="col-md-6 inner-content side-padding" *ngFor="let post of topTwoLikesPosts">
+    <resume-liked-post [post]="post"></resume-liked-post>
+  </div>
+</div>

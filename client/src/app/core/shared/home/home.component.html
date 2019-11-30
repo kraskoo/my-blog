@@ -6,60 +6,16 @@
         news articles from the best Programming websites on the web</p>
     </div>
   </div>
-  <h3>Top 2 liked posts</h3>
-  <div class="row mb-2 flex">
-    <div class="col-md-6 inner-content side-padding" *ngFor="let post of topTwoLikesPosts">
-      <div class="row no-gutters border rounded overflow-hidden flex-md-row mb-4 shadow-sm h-md-250 position-relative">
-        <div class="col p-4 d-flex flex-column position-static">
-          <h3 class="mb-0">{{post.title}}</h3>
-          <div class="mb-1 text-muted">{{post.creationDate | date: 'longDate'}} by {{post.author.firstName}}
-            {{post.author.lastName}}</div>
-          <p class="card-text mb-auto" [innerHTML]="post.shortContent | safe: 'html'"></p>
-          <a routerLink="/post/{{post._id}}" class="stretched-link">Continue reading</a>
-        </div>
-      </div>
-    </div>
-  </div>
+  <top-two-liked [posts]="posts"></top-two-liked>
   <div class="row">
     <div class="col-md-8 blog-main">
-      <div class="inner-content" *ngFor="let post of (posts | sortPosts: 'author._id'); let i = index; let length = count;">
-        <h2 class="blog-post-title"><a routerLink="/post/{{post._id}}">{{post.title}}</a></h2>
-        <p class="blog-post-meta">{{post.creationDate | date: 'longDate'}} by
-          <ng-template [ngIf]="post.author.info !== ''">
-            <a routerLink="/auth/info/{{post.author._id}}">{{post.author.firstName}} {{post.author.lastName}}</a>
-          </ng-template>
-          <ng-template [ngIf]="post.author.info === ''">
-            {{post.author.firstName}} {{post.author.lastName}}
-          </ng-template>
-        </p>
-        <a routerLink="/post/{{post._id}}">
-          <div [innerHTML]="post.shortContent | safe: 'html'"></div>
-        </a>
-        <ng-template [ngIf]="i >= length">
-          <hr />
-        </ng-template>
+      <div class="inner-content" *ngFor="let post of (posts | sortPosts: 'author._id')">
+        <resume-post [post]="post"></resume-post>
       </div>
     </div>
     <aside class="col-md-4 blog-sidebar">
-      <div class="p-4 mb-3 bg-light rounded inner-content">
-        <h4 class="font-italic">About</h4>
-        <p class="mb-0">Etiam porta <em>sem malesuada magna</em> mollis euismod. Cras mattis consectetur purus sit amet
-          fermentum. Aenean lacinia bibendum nulla sed consectetur.</p>
-      </div>
-      <div class="p-4 mb-3 bg-light rounded inner-content">
-        <h4 class="font-italic">Archives</h4>
-        <ol class="list-unstyled mb-0">
-          <li *ngFor="let archive of archives"><a routerLink="{{archive.value}}">{{archive.key | archiveDate}}</a></li>
-        </ol>
-      </div>
-      <div class="p-4 mb-3 bg-light rounded inner-content">
-        <h4 class="font-italic">Elsewhere</h4>
-        <ol class="list-unstyled">
-          <li><a href="https://github.com/kraskoo/" target="_blank">GitHub</a></li>
-          <li><a href="https://twitter.com/" target="_blank">Twitter</a></li>
-          <li><a href="https://facebook.com" target="_blank">Facebook</a></li>
-        </ol>
-      </div>
+      <right-side-common></right-side-common>
+      <resume-archives [posts]="posts"></resume-archives>
     </aside>
   </div>
 </main>

@@ -1,0 +1,14 @@
+<h2 class="blog-post-title">
+  <a routerLink="/post/{{post._id}}">{{post.title}}</a>
+</h2>
+<p class="blog-post-meta">{{post.creationDate | date: 'longDate'}} by
+  <ng-template [ngIf]="post.author.info !== ''">
+    <a routerLink="/auth/info/{{post.author._id}}">{{post.author.firstName}} {{post.author.lastName}}</a>
+  </ng-template>
+  <ng-template [ngIf]="post.author.info === ''">
+    {{post.author.firstName}} {{post.author.lastName}}
+  </ng-template>
+</p>
+<a routerLink="/post/{{post._id}}">
+  <div [innerHTML]="post.shortContent | safe: 'html'" [style.color]="'black'"></div>
+</a>
