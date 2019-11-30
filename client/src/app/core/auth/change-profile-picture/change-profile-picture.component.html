@@ -1,17 +1,26 @@
 <main id="main" class="container">
-    <h1>Change Profile Picture</h1>
-    <div class="row">
-      <div class="col-md-6">
-        <form #f="ngForm" (ngSubmit)="onSubmit()">
-          <div class="form-group">
-            <label for="profile-picture">New profile picture</label>
-            <input type="file" class="form-control-file" id="profile-picture" accept="image/*" name="profilePicture" (change)="onChange($event)"
-              #profilePicture="ngModel" ngModel required>
-          </div>
-          <div class="form-group">
-            <input type="submit" class="btn btn-outline-primary" value="Change" [disabled]="f.invalid" />
-          </div>
-        </form>
-      </div>
+  <h1>Change Profile Picture</h1>
+  <div class="row">
+    <div class="col-md-6">
+      <form #f="ngForm" (ngSubmit)="onSubmit()">
+        <div class="custom-file mb-3">
+          <input type="file" class="custom-file-input" id="profile-picture" accept="image/*" name="profilePicture"
+            (change)="onChange($event)" #profilePicture="ngModel" ngModel required />
+          <label for="profile-picture" class="custom-file-label">New profile picture</label>
+        </div>
+        <div class="form-group">
+        </div>
+        <div class="form-group">
+          <input type="submit" class="btn btn-outline-primary" value="Change" [disabled]="f.invalid" />
+        </div>
+      </form>
     </div>
-  </main>
+  </div>
+</main>
+
+<script>
+  $(".custom-file-input").on("change", function () {
+    var fileName = $(this).val().split("\\").pop();
+    $(this).siblings(".custom-file-label").addClass("selected").html(fileName);
+  });
+</script>
