@@ -25,7 +25,7 @@ function resizeImage(event: Event, size: number) {
     let file = files[0];
     if (file['type'].match(/image.*/)) {
       let reader = new FileReader();
-      reader.addEventListener('load', rEvent => {
+      reader.addEventListener('load', () => {
         let image = new Image();
         image.addEventListener('load', () => {
           console.log('in');
@@ -37,9 +37,11 @@ function resizeImage(event: Event, size: number) {
           let dataUrl = canvas.toDataURL('image/png', 72);
           resolve(dataURLToBlob(dataUrl));
         });
-        image.src = rEvent.target.result.toString();
+        image.src = reader.result.toString();
       });
       reader.readAsDataURL(file);
+    } else {
+      reject('Cannot convert non-image type to image type!')
     }
   });
 }
