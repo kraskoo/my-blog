@@ -3,10 +3,10 @@
   <hr />
   <div class="row">
     <div class="col-md-8 blog-main">
-      <ng-template [ngIf]="posts.length === 0">
-        <h3>No results has been found.</h3>
+      <ng-template [ngIf]="shortContents.length === 0">
+        <h3>No results for the search.</h3>
       </ng-template>
-      <div class="inner-content" *ngFor="let post of posts; let i = index; let length = count;">
+      <div class="inner-content" *ngFor="let post of posts | async as asyncPosts; let i = index; let length = count;">
         <h2 class="blog-post-title"><a routerLink="/post/{{post._id}}">{{post.title}}</a></h2>
         <p class="blog-post-meta">{{post.creationDate | date: 'longDate'}} by
           <ng-template [ngIf]="post.author.info !== ''">

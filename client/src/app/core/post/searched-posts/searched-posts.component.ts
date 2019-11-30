@@ -1,7 +1,10 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 
 import { Post } from '../../models/post.model';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Params } from '@angular/router';
+import { switchMap } from 'rxjs/operators';
+import { PostService } from '../../services/post.service';
+import { Observable } from 'rxjs';
 
 @Component({
   selector: 'app-searched-posts',
@@ -10,20 +13,25 @@ import { ActivatedRoute } from '@angular/router';
 })
 export class SearchedPostsComponent implements OnInit {
   search = '';
-  posts: Post[];
+  posts: Observable<Post[]>;
   shortContents: string[] = [];
 
-  constructor(private route: ActivatedRoute) { }
+  constructor(
+    private route: ActivatedRoute,
+    private postService: PostService) { }
 
   ngOnInit() {
-    // tslint:disable-next-line: no-string-literal
-    this.search = this.route.snapshot.params['search'];
-    // tslint:disable-next-line: no-string-literal
-    this.posts = this.route.snapshot.data['posts'];
-    this.posts.forEach(post => {
-      const paragraphs = post.content.split(/<[^>]*>/gm).filter(x => x !== '' && x.length > 5);
-      const content = `<p>${paragraphs[0]}</p> <p>${paragraphs[1]} ...</p>`;
-      this.shortContents.push(content);
+    this.posts = this.route.params.pipe(switchMap((p: Params) => {
+      this.shortContents = [];
+      this.search = p['search'];
+      return this.postService.getSearched(this.search);
+    }));
+    this.posts.subscribe(data => {
+      (data as Post[]).forEach(post => {
+        const paragraphs = post.content.split(/<[^>]*>/gm).filter(x => x !== '' && x.length > 5);
+        const content = `<p>${paragraphs[0]}</p> <p>${paragraphs[1]} ...</p>`;
+        this.shortContents.push(content);
+      });
     });
   }
 }

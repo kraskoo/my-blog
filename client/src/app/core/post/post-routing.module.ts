@@ -18,7 +18,7 @@ const postRoutes: Routes = [
   { path: ':id', component: PostComponent, resolve: { post: PostResolver } },
   { path: 'edit/:id', component: EditPostComponent, resolve: { post: PostResolver } },
   { path: 'delete/:id', component: DeletePostComponent, resolve: { post: PostResolver } },
-  { path: 'search/:search', component: SearchedPostsComponent, resolve: { posts: SearchedPostsResolver } },
+  { path: 'search/:search', component: SearchedPostsComponent },
   { path: 'archives/:month/:year', component: ArchivePostsComponent, resolve: { posts: ArchivePostsResolver } }
 ];
 

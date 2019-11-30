@@ -8,5 +8,4 @@ import { ExtendedPost } from '../../models/post.model';
 })
 export class ResumePostComponent {
   @Input() post: ExtendedPost;
-  @Input() titleTag: string;
 }
