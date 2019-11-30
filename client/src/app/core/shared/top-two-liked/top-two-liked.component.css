@@ -1,5 +1,14 @@
 .side-padding {
-  max-width: 48% !important;
-  margin-right: 11px;
-  margin-left: 11px;
+  max-width: 49% !important;
+}
+
+.side-padding:nth-child(1) {
+  margin-right: 2%;
+}
+
+@media only screen and (max-width: 767px) {
+  .side-padding {
+    min-width: 100%;
+    margin-right: 0;
+  }
 }

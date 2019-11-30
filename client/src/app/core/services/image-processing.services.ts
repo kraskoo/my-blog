@@ -1,4 +1,4 @@
-let dataURLToBlob = function (dataURL: string) {
+function dataURLToBlob(dataURL: string): Blob {
   let marker: string = ';base64,';
   if (dataURL.indexOf(marker) == -1) {
     let parts: string[] = dataURL.split(',');
@@ -28,7 +28,6 @@ function resizeImage(event: Event, size: number) {
       reader.addEventListener('load', () => {
         let image = new Image();
         image.addEventListener('load', () => {
-          console.log('in');
           let canvas: HTMLCanvasElement = document.createElement('canvas');
           let width: number = image.width;
           let height: number = image.height;

@@ -16,8 +16,9 @@ import { resizeImage } from '../../services/image-processing.services';
 export class ChangeProfilePictureComponent {
   @ViewChild('f', { static: true }) form: NgForm;
   label: string = 'No selected file.';
-  private file;
-  private fileName;
+  isInvalid: boolean = false;
+  private file: string;
+  private fileName: string;
 
   constructor(
     private authService: AuthService,
@@ -33,13 +34,16 @@ export class ChangeProfilePictureComponent {
       reader.readAsDataURL(data);
       reader.addEventListener('load', function() {
         this.file = reader.result;
-        console.log(this.file);
+        this.isInvalid = false;
       }.bind(this));
+    }.bind(this)).catch(function(error: string) {
+      this.isInvalid = true;
+      this.toastr.error(error);
     }.bind(this));
   }
 
   onSubmit() {
-    if (this.form.valid) {
+    if (!this.isInvalid && !this.form.invalid) {
       this.authService.changeProfilePicture(this.file, this.fileName, this.userService.user.id).subscribe(data => {
         if (data.success) {
           const user = this.userService.user;
