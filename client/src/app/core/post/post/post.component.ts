@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, OnInit, ViewChild, AfterViewInit } from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { AngularEditorConfig } from '@kolkov/angular-editor';
@@ -16,7 +16,7 @@ import { angularEditorConfig } from '../../services/app.services';
   templateUrl: './post.component.html',
   styleUrls: ['./post.component.css']
 })
-export class PostComponent implements OnInit {
+export class PostComponent implements OnInit, AfterViewInit {
   @ViewChild('f', { static: false }) form: NgForm;
   post: Post;
   hasAuthorInfo = false;
@@ -88,5 +88,9 @@ export class PostComponent implements OnInit {
         }
       });
     }
+  }  
+
+  ngAfterViewInit() {
+    window.scroll(0, 0);
   }
 }

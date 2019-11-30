@@ -1,5 +1,5 @@
 <main id="main" class="container">
   <h2 class="header">Information about {{userName()}}</h2>
   <hr />
-  <div class="info-box" [innerHTML]="info() | safe: 'html'"></div>
+  <div class="info-box" [innerHTML]="info() | safe: 'html'" [style.backgroundColor]="'white'"></div>
 </main>
