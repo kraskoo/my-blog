@@ -1,5 +1,10 @@
+#user-menu {
+  padding-top: 0;
+  padding-bottom: 0;
+}
+
 .profilePicture {
-  width: 50px;
+  width: 40px;
   border-radius: 50%;
 }
 

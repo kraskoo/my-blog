@@ -7,7 +7,7 @@
         <div class="custom-file mb-3">
           <input type="file" class="custom-file-input" id="profile-picture" accept="image/*" name="profilePicture"
             (change)="onChange($event)" #profilePicture="ngModel" ngModel required />
-          <label for="profile-picture" class="custom-file-label">New profile picture</label>
+          <label for="profile-picture" class="custom-file-label">{{this.label}}</label>
         </div>
         <div class="form-group">
         </div>
@@ -18,10 +18,3 @@
     </div>
   </div>
 </main>
-
-<script>
-  $(".custom-file-input").on("change", function () {
-    var fileName = $(this).val().split("\\").pop();
-    $(this).siblings(".custom-file-label").addClass("selected").html(fileName);
-  });
-</script>

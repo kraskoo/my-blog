@@ -6,6 +6,8 @@ import { ToastrService } from 'ngx-toastr';
 import { AuthService } from '../../services/auth.service';
 import { UserService } from '../../services/user.service';
 
+import { resizeImage } from '../../services/image-processing.services';
+
 @Component({
   selector: 'app-change-profile-picture',
   templateUrl: './change-profile-picture.component.html',
@@ -13,6 +15,7 @@ import { UserService } from '../../services/user.service';
 })
 export class ChangeProfilePictureComponent {
   @ViewChild('f', { static: true }) form: NgForm;
+  label: string = 'No selected file.';
   private file;
   private fileName;
 
@@ -22,14 +25,17 @@ export class ChangeProfilePictureComponent {
     private router: Router,
     private toastr: ToastrService) { }
 
-  onChange(event) {
+  onChange(event: Event) {
+    const file = event.target['files'][0];
+    this.label = this.fileName = file.name;
     const reader = new FileReader();
-    const file = event.target.files[0];
-    this.fileName = file.name;
-    reader.readAsDataURL(file);
-    reader.onload = function() {
-      this.file = reader.result;
-    }.bind(this);
+    resizeImage(event, 100).then(function(data: Blob) {
+      reader.readAsDataURL(data);
+      reader.addEventListener('load', function() {
+        this.file = reader.result;
+        console.log(this.file);
+      }.bind(this));
+    }.bind(this));
   }
 
   onSubmit() {

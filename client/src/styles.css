@@ -4,7 +4,7 @@ html, body {
 }
 
 #main {
-  min-height: calc(100% - 176px);
+  min-height: calc(100% - 150px);
   margin: 20px auto;
   padding-top: 10px;
   padding-bottom: 10px;
