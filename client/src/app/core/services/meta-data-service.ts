@@ -37,8 +37,8 @@ export class MetadataService {
     private titleService: Title,
     private metaService: Meta) { }
 
-  updateTitle(title: string) {
-    this.titleService.setTitle(`${this.metas.title} - ${title}`);
+  updateTitle(title: string, suffix: boolean = true) {
+    this.titleService.setTitle(suffix ? `${this.metas.title} - ${title}` : `${this.metas.title}`);
   }
 
   updateAllMetas(metas: Metadata = null) {

@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { Title } from '@angular/platform-browser';
+import { MetadataService } from './core/services/meta-data-service';
 
 @Component({
   selector: 'app-root',
@@ -7,10 +7,10 @@ import { Title } from '@angular/platform-browser';
   styleUrls: ['./app.component.css']
 })
 export class AppComponent implements OnInit {
-  title = 'My Blog';
-  constructor(private titleService: Title) { }
+  constructor(private metadataService: MetadataService) { }
 
   ngOnInit(): void {
-    this.titleService.setTitle(this.title);
+    this.metadataService.updateTitle('', false);
+    this.metadataService.updateAllMetas();
   }
 }

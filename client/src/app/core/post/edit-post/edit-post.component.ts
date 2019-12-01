@@ -1,13 +1,13 @@
 import { Component, OnInit, ViewChild, DoCheck } from '@angular/core';
-import { NgForm } from '@angular/forms';
 import { Router, ActivatedRoute } from '@angular/router';
+import { NgForm } from '@angular/forms';
 import { AngularEditorConfig } from '@kolkov/angular-editor';
 import { ToastrService } from 'ngx-toastr';
-import { angularEditorConfig } from '../../services/app.services';
 
 import { PostService } from '../../services/post.service';
 import { UserService } from '../../services/user.service';
 import { MetadataService } from '../../services/meta-data-service';
+import { angularEditorConfig } from '../../services/app.services';
 
 import { Post } from '../../models/post.model';
 

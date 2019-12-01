@@ -6,8 +6,8 @@ import { ToastrService } from 'ngx-toastr';
 
 import { UserService } from '../../services/user.service';
 import { AuthService } from '../../services/auth.service';
-import { angularEditorConfig } from '../../services/app.services';
 import { MetadataService } from '../../services/meta-data-service';
+import { angularEditorConfig } from '../../services/app.services';
 
 @Component({
   selector: 'app-add-info',

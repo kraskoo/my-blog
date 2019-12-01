@@ -1,8 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 
-import { User } from '../../models/user.model';
 import { MetadataService } from '../../services/meta-data-service';
+
+import { User } from '../../models/user.model';
 
 @Component({
   selector: 'app-info',

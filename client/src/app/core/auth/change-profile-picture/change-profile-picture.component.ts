@@ -5,9 +5,9 @@ import { ToastrService } from 'ngx-toastr';
 
 import { AuthService } from '../../services/auth.service';
 import { UserService } from '../../services/user.service';
+import { MetadataService } from '../../services/meta-data-service';
 
 import { resizeImage } from '../../services/image-processing.services';
-import { MetadataService } from '../../services/meta-data-service';
 
 @Component({
   selector: 'app-change-profile-picture',

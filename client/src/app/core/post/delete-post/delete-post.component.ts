@@ -1,13 +1,15 @@
 import { Component, OnInit, ViewChild, DoCheck } from '@angular/core';
+import { Router, ActivatedRoute } from '@angular/router';
 import { NgForm } from '@angular/forms';
-import { Post } from '../../models/post.model';
 import { AngularEditorConfig } from '@kolkov/angular-editor';
+import { ToastrService } from 'ngx-toastr';
+
 import { PostService } from '../../services/post.service';
 import { UserService } from '../../services/user.service';
-import { Router, ActivatedRoute } from '@angular/router';
-import { ToastrService } from 'ngx-toastr';
-import { angularEditorConfig } from '../../services/app.services';
 import { MetadataService } from '../../services/meta-data-service';
+import { angularEditorConfig } from '../../services/app.services';
+
+import { Post } from '../../models/post.model';
 
 @Component({
   selector: 'app-delete-post',

@@ -4,8 +4,8 @@ import { Observable } from 'rxjs';
 import { switchMap } from 'rxjs/operators';
 
 import { PostService } from '../../services/post.service';
-import { Post, ExtendedPost } from '../../models/post.model';
 import { MetadataService } from '../../services/meta-data-service';
+import { Post, ExtendedPost } from '../../models/post.model';
 
 @Component({
   selector: 'app-searched-posts',

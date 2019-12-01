@@ -4,11 +4,12 @@ import { NgForm } from '@angular/forms';
 import { AngularEditorConfig } from '@kolkov/angular-editor';
 import { ToastrService } from 'ngx-toastr';
 
-import { CommentModel } from '../../models/comment.model';
 import { CommentService } from '../../services/comment.service';
 import { UserService } from '../../services/user.service';
-import { angularEditorConfig } from '../../services/app.services';
 import { MetadataService } from '../../services/meta-data-service';
+import { angularEditorConfig } from '../../services/app.services';
+
+import { CommentModel } from '../../models/comment.model';
 
 @Component({
   selector: 'app-edit-comment',

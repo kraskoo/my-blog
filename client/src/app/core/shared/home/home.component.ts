@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
+import { MetadataService } from '../../services/meta-data-service';
 
 import { Post, ExtendedPost } from '../../models/post.model';
-import { MetadataService } from '../../services/meta-data-service';
 
 @Component({
   selector: 'app-home',
