@@ -39,3 +39,14 @@
 .navbar-light .navbar-toggler {
   border-color: whitesmoke;
 }
+
+@media only screen and (max-width: 991px) {
+  .navbar {
+    max-height: 56px;
+  }
+
+  .nav-link {
+    padding-top: 16px;
+    padding-bottom: 0;
+  }
+}
