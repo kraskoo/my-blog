@@ -7,6 +7,7 @@ import { UserService } from '../../services/user.service';
 import { Router, ActivatedRoute } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 import { angularEditorConfig } from '../../services/app.services';
+import { MetadataService } from '../../services/meta-data-service';
 
 @Component({
   selector: 'app-delete-post',
@@ -27,9 +28,12 @@ export class DeletePostComponent implements OnInit, DoCheck {
     private userService: UserService,
     private router: Router,
     private route: ActivatedRoute,
-    private toastr: ToastrService) { }
+    private toastr: ToastrService,
+    private metadataService: MetadataService) { }
 
   ngOnInit() {
+    this.metadataService.updateTitle('Delete Post');
+    this.metadataService.updateAllMetas();
     // tslint:disable-next-line: no-string-literal
     this.post = this.route.snapshot.data['post'];
     this.title = this.post.title;

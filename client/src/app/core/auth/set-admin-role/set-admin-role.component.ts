@@ -5,6 +5,7 @@ import { ToastrService } from 'ngx-toastr';
 import { Observable } from 'rxjs';
 
 import { AuthService } from '../../services/auth.service';
+import { MetadataService } from '../../services/meta-data-service';
 
 @Component({
   selector: 'app-set-admin-role',
@@ -18,9 +19,12 @@ export class SetAdminRoleComponent implements OnInit {
   constructor(
     private authService: AuthService,
     private router: Router,
-    private toastr: ToastrService) {}
+    private toastr: ToastrService,
+    private metadataService: MetadataService) {}
 
   ngOnInit(): void {
+    this.metadataService.updateTitle('Set To Admin Role');
+    this.metadataService.updateAllMetas();
     this.users$ = this.authService.getAllRegularUsers();
   }
 

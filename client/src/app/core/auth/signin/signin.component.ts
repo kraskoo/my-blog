@@ -1,24 +1,31 @@
-import { Component, ViewChild } from '@angular/core';
+import { Component, ViewChild, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { NgForm } from '@angular/forms';
 import { ToastrService } from 'ngx-toastr';
 
 import { AuthService } from '../../services/auth.service';
 import { UserService } from '../../services/user.service';
+import { MetadataService } from '../../services/meta-data-service';
 
 @Component({
   selector: 'app-signin',
   templateUrl: './signin.component.html',
   styleUrls: ['./signin.component.css']
 })
-export class SigninComponent {
+export class SigninComponent implements OnInit {
   @ViewChild('f', { static: true }) form: NgForm;
 
   constructor(
     private authService: AuthService,
     private userService: UserService,
     private router: Router,
-    private toastr: ToastrService) {}
+    private toastr: ToastrService,
+    private metadataService: MetadataService) { }
+
+  ngOnInit(): void {
+    this.metadataService.updateTitle('Login');
+    this.metadataService.updateAllMetas();
+  }
 
   onSubmit() {
     if (this.form.valid) {

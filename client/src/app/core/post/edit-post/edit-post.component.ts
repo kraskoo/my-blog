@@ -7,6 +7,7 @@ import { angularEditorConfig } from '../../services/app.services';
 
 import { PostService } from '../../services/post.service';
 import { UserService } from '../../services/user.service';
+import { MetadataService } from '../../services/meta-data-service';
 
 import { Post } from '../../models/post.model';
 
@@ -29,9 +30,12 @@ export class EditPostComponent implements OnInit, DoCheck {
     private userService: UserService,
     private router: Router,
     private route: ActivatedRoute,
-    private toastr: ToastrService) {}
+    private toastr: ToastrService,
+    private metadataService: MetadataService) { }
 
   ngOnInit() {
+    this.metadataService.updateTitle('Edit Post');
+    this.metadataService.updateAllMetas();
     // tslint:disable-next-line: no-string-literal
     this.post = this.route.snapshot.data['post'];
     this.title = this.post.title;

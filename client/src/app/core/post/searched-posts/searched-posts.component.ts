@@ -5,6 +5,7 @@ import { switchMap } from 'rxjs/operators';
 
 import { PostService } from '../../services/post.service';
 import { Post, ExtendedPost } from '../../models/post.model';
+import { MetadataService } from '../../services/meta-data-service';
 
 @Component({
   selector: 'app-searched-posts',
@@ -18,9 +19,12 @@ export class SearchedPostsComponent implements OnInit {
 
   constructor(
     private route: ActivatedRoute,
-    private postService: PostService) { }
+    private postService: PostService,
+    private metadataService: MetadataService) { }
 
   ngOnInit() {
+    this.metadataService.updateTitle('Searched Posts');
+    this.metadataService.updateAllMetas();
     this.posts = this.route.params.pipe(switchMap((p: Params) => {
       this.extendedPosts = [];
       this.search = p['search'];

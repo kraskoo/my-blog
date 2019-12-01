@@ -7,6 +7,7 @@ import { ToastrService } from 'ngx-toastr';
 import { UserService } from '../../services/user.service';
 import { AuthService } from '../../services/auth.service';
 import { angularEditorConfig } from '../../services/app.services';
+import { MetadataService } from '../../services/meta-data-service';
 
 @Component({
   selector: 'app-add-info',
@@ -22,9 +23,12 @@ export class AddInfoComponent implements OnInit {
     private userService: UserService,
     private authService: AuthService,
     private router: Router,
-    private toastr: ToastrService) { }
+    private toastr: ToastrService,
+    private metadataService: MetadataService) { }
 
   ngOnInit(): void {
+    this.metadataService.updateTitle('Add/Edit User Info');
+    this.metadataService.updateAllMetas();
     if (this.userService.user.info !== '') {
       this.htmlContent = this.userService.user.info;
     }

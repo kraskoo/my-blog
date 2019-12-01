@@ -1,4 +1,4 @@
-import { Component, ViewChild } from '@angular/core';
+import { Component, ViewChild, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { NgForm } from '@angular/forms';
 import { ToastrService } from 'ngx-toastr';
@@ -7,6 +7,7 @@ import { AngularEditorConfig } from '@kolkov/angular-editor';
 
 import { PostService } from '../../services/post.service';
 import { UserService } from '../../services/user.service';
+import { MetadataService } from '../../services/meta-data-service';
 import { angularEditorConfig } from '../../services/app.services';
 
 @Component({
@@ -14,14 +15,20 @@ import { angularEditorConfig } from '../../services/app.services';
   templateUrl: './create-post.component.html',
   styleUrls: ['./create-post.component.css']
 })
-export class CreatePostComponent {
+export class CreatePostComponent implements OnInit {
   @ViewChild('f', { static: true }) form: NgForm;
 
   constructor(
     private postService: PostService,
     private userService: UserService,
     private router: Router,
-    private toastr: ToastrService) { }
+    private toastr: ToastrService,
+    private metadataService: MetadataService) { }
+
+  ngOnInit(): void {
+    this.metadataService.updateTitle('Create Post');
+    this.metadataService.updateAllMetas();
+  }
 
   htmlContent = '';
   config: AngularEditorConfig = angularEditorConfig;

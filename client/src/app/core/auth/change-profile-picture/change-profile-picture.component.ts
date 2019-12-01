@@ -1,4 +1,4 @@
-import { Component, ViewChild } from '@angular/core';
+import { Component, ViewChild, OnInit } from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
@@ -7,24 +7,31 @@ import { AuthService } from '../../services/auth.service';
 import { UserService } from '../../services/user.service';
 
 import { resizeImage } from '../../services/image-processing.services';
+import { MetadataService } from '../../services/meta-data-service';
 
 @Component({
   selector: 'app-change-profile-picture',
   templateUrl: './change-profile-picture.component.html',
   styleUrls: ['./change-profile-picture.component.css']
 })
-export class ChangeProfilePictureComponent {
+export class ChangeProfilePictureComponent implements OnInit {
+  private file: string;
+  private fileName: string;
   @ViewChild('f', { static: true }) form: NgForm;
   label: string = 'No selected file.';
   isInvalid: boolean = false;
-  private file: string;
-  private fileName: string;
 
   constructor(
     private authService: AuthService,
     private userService: UserService,
     private router: Router,
-    private toastr: ToastrService) { }
+    private toastr: ToastrService,
+    private metadataService: MetadataService) { }
+
+  ngOnInit(): void {
+    this.metadataService.updateTitle('Change Profile Picture')
+    this.metadataService.updateAllMetas();
+  }
 
   onChange(event: Event) {
     const file = event.target['files'][0];

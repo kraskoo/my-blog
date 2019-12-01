@@ -3,6 +3,9 @@ import { Component, OnInit } from '@angular/core';
 import { Post, ExtendedPost } from '../../models/post.model';
 import { ActivatedRoute } from '@angular/router';
 
+import { MetadataService } from '../../services/meta-data-service';
+import { getMonthAsWord } from '../../services/date-service';
+
 @Component({
   selector: 'app-archive-posts',
   templateUrl: './archive-posts.component.html',
@@ -12,9 +15,13 @@ export class ArchivePostsComponent implements OnInit {
   date = '';
   posts: ExtendedPost[];
 
-  constructor(private route: ActivatedRoute) { }
+  constructor(
+    private route: ActivatedRoute,
+    private metadataService: MetadataService) { }
 
   ngOnInit() {
+    this.metadataService.updateTitle(`Archives - ${getMonthAsWord(Number(this.route.snapshot.params['month']))}, ${this.route.snapshot.params['year']}`);
+    this.metadataService.updateAllMetas();
     // tslint:disable-next-line: no-string-literal
     this.date = `${this.route.snapshot.params['month']}-${this.route.snapshot.params['year']}`;
     // tslint:disable-next-line: no-string-literal

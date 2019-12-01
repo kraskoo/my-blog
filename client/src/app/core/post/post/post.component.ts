@@ -10,8 +10,7 @@ import { Post } from '../../models/post.model';
 import { UserService } from '../../services/user.service';
 import { CommentModel } from '../../models/comment.model';
 import { angularEditorConfig } from '../../services/app.services';
-import { defaultMetadata, getAllMetas, Metadata } from '../../services/meta-data-service';
-import { Title, Meta } from '@angular/platform-browser';
+import { MetadataService } from '../../services/meta-data-service';
 
 @Component({
   selector: 'app-post',
@@ -23,7 +22,6 @@ export class PostComponent implements OnInit, AfterViewInit {
   post: Post;
   hasAuthorInfo = false;
   htmlContent = '';
-  private metas: Metadata = defaultMetadata;
 
   config: AngularEditorConfig = { ...angularEditorConfig, height: '10rem', minHeight: '10rem' };
 
@@ -34,8 +32,7 @@ export class PostComponent implements OnInit, AfterViewInit {
     private toastr: ToastrService,
     private postService: PostService,
     private commentService: CommentService,
-    private titleService: Title,
-    private metaService: Meta) { }
+    private metadataService: MetadataService) { }
 
   get isAuthorOnPost(): boolean {
     return this.userService.hasLoggedinUser() &&
@@ -50,16 +47,16 @@ export class PostComponent implements OnInit, AfterViewInit {
   ngOnInit() {
     // tslint:disable-next-line: no-string-literal
     this.post = this.route.snapshot.data['post'];
-    const title = `${this.metas['title'].toString()} - ${this.post.title} by ${this.post.author.firstName} ${this.post.author.lastName}`
-    this.titleService.setTitle(title);
-    this.metas = {
-      ...this.metas,
+    const title = `${this.metadataService.metas['title'].toString()} - ${this.post.title} by ${this.post.author.firstName} ${this.post.author.lastName}`;
+    this.metadataService.updateTitle(title);
+    const metas = {
+      ...this.metadataService.metas,
       description: { name: 'description', content: title },
       keywords: { name: 'keywords', content: (title.split(/[ \-,\n]+/gm).join(',')) },
       date: { name: 'date', content: this.post.creationDate, isEmpty: false },
       author: { name: 'author', content: `${this.post.author.firstName} ${this.post.author.lastName}` }
     };
-    getAllMetas(this.metas, this.metaService);
+    this.metadataService.updateAllMetas(metas);
     this.hasAuthorInfo = this.post.author.info !== '';
   }
 

@@ -8,6 +8,7 @@ import { CommentModel } from '../../models/comment.model';
 import { CommentService } from '../../services/comment.service';
 import { UserService } from '../../services/user.service';
 import { angularEditorConfig } from '../../services/app.services';
+import { MetadataService } from '../../services/meta-data-service';
 
 @Component({
   selector: 'app-delete-comment',
@@ -26,9 +27,12 @@ export class DeleteCommentComponent implements OnInit, DoCheck {
     private userService: UserService,
     private router: Router,
     private route: ActivatedRoute,
-    private toastr: ToastrService) {}
+    private toastr: ToastrService,
+    private metadataService: MetadataService) {}
 
   ngOnInit() {
+    this.metadataService.updateTitle('Delete Comment');
+    this.metadataService.updateAllMetas();
     // tslint:disable-next-line: no-string-literal
     this.comment = this.route.snapshot.data['comment'];
     this.htmlContent = this.comment.content;
