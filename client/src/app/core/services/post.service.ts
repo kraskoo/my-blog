@@ -14,12 +14,12 @@ export class PostService {
     }>('post/create', { title, content, author, creationDate });
   }
 
-  getAll() {
+  getAll(isRanged: boolean = false, page: number = 1) {
     return this.http.get<{
       success: boolean,
       message: string,
-      posts: Post[]
-    }>('post/all');
+      data: { posts: Post[], dates: Date[], topTwoLiked: Post[], count: number }
+    }>(isRanged ? `post/all/${page}?ranged=true` : `post/all/${page}`);
   }
 
   getSearched(searched: string) {

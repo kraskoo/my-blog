@@ -6,16 +6,40 @@
         news articles from the best Programming websites on the web</p>
     </div>
   </div>
-  <top-two-liked [posts]="posts"></top-two-liked>
+  <top-two-liked [posts]="topTwoLiked"></top-two-liked>
   <div class="row">
     <div class="col-md-8 blog-main">
-      <div class="inner-content" *ngFor="let post of (posts | sortPosts: 'author._id')">
+      <ng-template [ngIf]="posts.length === 0">
+        <img src="./assets/thumb.png" class="img-fluid" />
+      </ng-template>
+      <div class="inner-content"
+        *ngFor="let post of (posts | sortPosts: 'author._id') as sortedPosts; let length = count;">
         <resume-post [post]="post"></resume-post>
       </div>
+      <ng-template [ngIf]="pages > 1">
+        <nav aria-label="Page navigation example">
+          <ul class="pagination">
+            <ng-template [ngIf]="page > 1">
+              <li class="page-item"><p class="page-link" (click)="changePage(page - 1)">Previous</p></li>
+            </ng-template>
+            <li *ngFor="let p of pageNumbers" class="page-item" [class.disabled]="page === p">
+              <ng-template [ngIf]="page !== p">
+                <p class="page-link" (click)="changePage(p)">{{p}}</p>
+              </ng-template>
+              <ng-template [ngIf]="page === p">
+                <a class="page-link" tabindex="-1">{{p}}</a>
+              </ng-template>
+            </li>
+            <ng-template [ngIf]="page < pages">
+              <li class="page-item"><p class="page-link" (click)="changePage(page + 1)">Next</p></li>
+            </ng-template>
+          </ul>
+        </nav>
+      </ng-template>
     </div>
     <aside class="col-md-4 blog-sidebar">
       <right-side-common></right-side-common>
-      <resume-archives [posts]="posts"></resume-archives>
+      <resume-archives [dates]="dates"></resume-archives>
     </aside>
   </div>
 </main>

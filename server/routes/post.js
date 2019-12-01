@@ -28,12 +28,51 @@ router.post('/create', (req, res) => {
   }
 });
 
-router.get('/all', (_req, res) => {
+router.get('/all/:page', (req, res) => {
+  let requestPage = 1;
+  if (Object.keys(req.params).length > 0) {
+    let { page } = req.params;
+    requestPage = Number(page);
+  }
+
+  const { ranged } = req.query;
+  const isRanged = Object.keys(req.query).length > 0 && ranged.toLowerCase() === 'true'
+  let currentDate = new Date(Date.now());
+  let month = Number(currentDate.getMonth());
+  let year = Number(currentDate.getFullYear());
+  let startDate = new Date(year, month, 1);
+  let endDate = new Date(year, month, getDaysOfMonth(year, month));
   Post.find({}).populate('author').populate('comments').then(posts => {
+    const dates = [];
+    let innerPosts = [];
+    const topTwoLiked = posts.sort((a, b) => {
+      const likeDiff = b.likes - a.likes;
+      if (likeDiff === 0) {
+        return b.creationDate - a.creationDate;
+      }
+
+      return likeDiff;
+    })
+      .filter(x => x.creationDate < startDate)
+      .slice(0, 2);
+    for (let post of posts) {
+      dates.push(post.creationDate);
+      if (isRanged) {
+        if (post.creationDate >= startDate && post.creationDate <= endDate) {
+          innerPosts.push(post);
+        }
+      } else {
+        innerPosts.push(post);
+      }
+    }
+
+    const count = innerPosts.length;
+    // Skin (n - 1) * 5 posts then take first 5 posts (or go to page n)
+    innerPosts = innerPosts.slice((requestPage - 1) * 5).slice(0, 5);
     return res.status(200).json({
       success: 200,
       message: messages.getAll,
-      posts: posts
+      data: { posts: innerPosts, dates: dates, topTwoLiked: topTwoLiked, count }
     });
   }).catch(err => {
     return res.status(400).json({

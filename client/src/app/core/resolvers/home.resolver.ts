@@ -7,13 +7,14 @@ import { PostService } from '../services/post.service';
 import { Post } from '../models/post.model';
 
 @Injectable({ providedIn: 'root' })
-export default class HomeResolver implements Resolve<Post[]> {
+export default class HomeResolver implements Resolve<{ posts: Post[], dates: Date[], topTwoLiked: Post[], count: number }> {
   constructor(private postService: PostService) { }
 
   resolve(route: ActivatedRouteSnapshot, state: RouterStateSnapshot) {
+    const page = Number(route.params['page']);
     // tslint:disable-next-line: no-string-literal
-    return this.postService.getAll().pipe(
-      map(data => data.posts)
+    return this.postService.getAll(true, page).pipe(
+      map(data => data.data)
     );
   }
 }

@@ -7,12 +7,12 @@ import { ExtendedPost } from '../../models/post.model';
   styleUrls: ['./resume-archives.component.css']
 })
 export class ResumeArchivesComponent implements OnInit {
-  @Input() posts: ExtendedPost[] = [];
+  @Input() dates: Date[] = [];
   archives: { key: string, value: string }[] = [];
 
   ngOnInit(): void {
-    this.posts.forEach(p => {
-      const creationDate = new Date(p.creationDate);
+    this.dates.forEach(p => {
+      const creationDate = new Date(p);
       const month = creationDate.getMonth();
       const year = creationDate.getFullYear();
       const key = `${`${month}`.length === 1 ? `0${month}` : month}-${year}`;
