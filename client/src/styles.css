@@ -54,3 +54,10 @@ input[type=submit]:disabled {
 .angular-editor-wrapper, .angular-editor-toolbar, .info-box {
   background-color: white !important;
 }
+
+.sticky-navbar {
+  position: fixed;
+  top: 0;
+  width: 100%;
+  z-index: 5;
+}
