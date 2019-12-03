@@ -40,7 +40,6 @@ export class HomeComponent implements OnInit {
   }
 
   proceedData(data: any, currentPage: number = 1) {
-    console.log(data);
     this.page = currentPage;
     const postCount = Number(data['count']) / 5;
     const intNumber = parseInt(postCount.toString());

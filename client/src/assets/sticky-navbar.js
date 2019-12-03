@@ -4,11 +4,13 @@
   }
 
   window.addEventListener('scroll', function () {
-    var sticky = navbar().offsetTop;
-    if (window.pageYOffset >= sticky + 35) {
-      navbar().classList.add('sticky-navbar');
-    } else {
-      navbar().classList.remove('sticky-navbar');
+    if (Math.abs(window.outerHeight - document.body.scrollHeight) >= 90) {
+      var sticky = navbar().offsetTop;
+      if (window.pageYOffset >= sticky + 35) {
+        navbar().classList.add('sticky-navbar');
+      } else {
+        navbar().classList.remove('sticky-navbar');
+      }
     }
   });
 }());
