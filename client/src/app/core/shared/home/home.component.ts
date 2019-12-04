@@ -42,7 +42,7 @@ export class HomeComponent implements OnInit {
       // tslint:disable-next-line: no-shadowed-variable
     })).subscribe(function(data: { posts: Post[], dates: Date[], topTwoLiked: Post[], count: number }) {
       // tslint:disable-next-line: no-string-literal
-      const postCount = data.count > 5 ? data.count / 5 : data.count;
+      const postCount = data.count <= 5 ? data.count / 5 : data.count;
       // tslint:disable-next-line: radix
       const intNumber = parseInt(postCount.toString());
       this.pages = intNumber < postCount ? 1 + intNumber : postCount;

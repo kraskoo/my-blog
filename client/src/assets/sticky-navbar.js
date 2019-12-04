@@ -5,16 +5,11 @@
 
   function elementOffsetsToCompare() {
     window.addEventListener('scroll', function () {
-      var sticky = navbar().offsetTop;
-      if (window.pageYOffset >= sticky + 35) {
-        navbar().classList.add('sticky-navbar');
-      } else {
-        navbar().classList.remove('sticky-navbar');
+      if (Math.abs(window.outerHeight - document.body.scrollHeight) >= 90) {
+        navbar().classList[window.pageYOffset >= navbar().offsetTop + 35 ? 'add' : 'remove']('sticky-navbar');
       }
     });
   }
 
-  window.addEventListener('load', function() {
-    elementOffsetsToCompare(document.querySelector('nav'), document.querySelector('main'));
-  });
+  window.addEventListener('load', elementOffsetsToCompare);
 }());
