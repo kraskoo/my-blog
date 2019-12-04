@@ -48,9 +48,7 @@ export class PostComponent implements OnInit, AfterViewInit {
   ngOnInit() {
     // tslint:disable-next-line: no-string-literal
     this.post = this.route.snapshot.data['post'];
-    const title =
-    // tslint:disable-next-line: no-string-literal
-    `${this.metadataService.metas['title'].toString()} - ${this.post.title} by ${this.post.author.firstName} ${this.post.author.lastName}`;
+    const title = `${this.post.title} by ${this.post.author.firstName} ${this.post.author.lastName}`;
     this.metadataService.updateTitle(title);
     const metas = {
       ...this.metadataService.metas,

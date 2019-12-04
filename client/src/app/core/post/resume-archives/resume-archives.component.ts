@@ -11,7 +11,6 @@ export class ResumeArchivesComponent implements OnInit {
   archives: { key: string, value: string }[] = [];
 
   ngOnInit(): void {
-    console.log(this.dates);
     this.dates.forEach(p => {
       const creationDate = new Date(p);
       const month = creationDate.getMonth();

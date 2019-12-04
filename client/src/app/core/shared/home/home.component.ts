@@ -45,12 +45,7 @@ export class HomeComponent implements OnInit {
       const postCount = data.count > 5 ? data.count / 5 : data.count;
       // tslint:disable-next-line: radix
       const intNumber = parseInt(postCount.toString());
-      if (intNumber < postCount) {
-        this.pages = 1 + intNumber;
-      } else {
-        this.pages = postCount;
-      }
-
+      this.pages = intNumber < postCount ? 1 + intNumber : postCount;
       this.pageNumbers = [];
       for (let i = 1; i <= this.pages; i++) {
         this.pageNumbers.push(i);
