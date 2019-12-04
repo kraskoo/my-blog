@@ -3,6 +3,7 @@ const router = new express.Router();
 const Post = require('../models/Post');
 const Comment = require('../models/Comment');
 const { common: commonMessages, post: messages } = require('../services/messages');
+const { archiveDates, topTwoLikedPosts } = require('../services/persist-data');
 
 router.post('/create', (req, res) => {
   const body = req.body;
@@ -35,28 +36,54 @@ router.get('/all/:page', (req, res) => {
     requestPage = Number(page);
   }
 
-  const { ranged } = req.query;
-  const isRanged = Object.keys(req.query).length > 0 && ranged.toLowerCase() === 'true'
+  let isRanged = false;
+  if (Object.keys(req.params).length > 0) {
+    const { ranged } = req.query;
+    isRanged = ranged.toLowerCase() === 'true'
+  }
+
   let currentDate = new Date(Date.now());
   let month = Number(currentDate.getMonth());
   let year = Number(currentDate.getFullYear());
   let startDate = new Date(year, month, 1);
   let endDate = new Date(year, month, getDaysOfMonth(year, month));
   Post.find({}).populate('author').populate('comments').then(posts => {
-    const dates = [];
-    let innerPosts = [];
-    const topTwoLiked = posts.sort((a, b) => {
-      const likeDiff = b.likes - a.likes;
-      if (likeDiff === 0) {
-        return b.creationDate - a.creationDate;
+    if (posts.length < 1) {
+      return res.status(200).json({
+        success: 200,
+        message: messages.getAll,
+        data: { posts: [], dates: [], topTwoLiked: [], count: 0 }
+      });
+    }
+
+    const didTopTwoLikedPostsAreEmpty = topTwoLikedPosts.length === 0;
+    if (didTopTwoLikedPostsAreEmpty) {
+      let topTwo = posts.sort((a, b) => {
+        const likeDiff = b.likes - a.likes;
+        if (likeDiff === 0) {
+          const datesDiff = b.creationDate - a.creationDate;
+          if (datesDiff === 0) {
+            return b.title.length - a.title.length;
+          }
+
+          return datesDiff;
+        }
+
+        return likeDiff;
+      }).slice(0, 2);
+      if (topTwo.length > 0) {
+        topTwoLikedPosts.push(topTwo[0]);
       }
 
-      return likeDiff;
-    })
-      .filter(x => x.creationDate < startDate)
-      .slice(0, 2);
+      if (topTwo.length > 1) {
+        topTwoLikedPosts.push(topTwo[1]);
+      }
+    }
+
+    let innerPosts = [];
+    let dates = [];
     for (let post of posts) {
-      dates.push(post.creationDate);
+      dates.push({ post, date: post.creationDate });
       if (isRanged) {
         if (post.creationDate >= startDate && post.creationDate <= endDate) {
           innerPosts.push(post);
@@ -66,13 +93,39 @@ router.get('/all/:page', (req, res) => {
       }
     }
 
+    dates = dates.sort((a, b) => b.date - a.date);
     const count = innerPosts.length;
-    // Skin (n - 1) * 5 posts then take first 5 posts (or go to page n)
-    innerPosts = innerPosts.slice((requestPage - 1) * 5).slice(0, 5);
+    const hasDiffWithOriginal = count < 1;
+    if (hasDiffWithOriginal) {
+      const diff = dates.length < 2 ? dates.length - count : 2 - count;
+      for (let i = 0; i < diff; i++) {
+        innerPosts.push(dates.pop().post);
+      }
+
+      innerPosts = innerPosts.sort((a, b) => b.creationDate - a.creationDate);
+    } else {
+      // Skin (n - 1) * 5 posts then take first 5 posts (or go to page n)
+      innerPosts = innerPosts.sort((a, b) => b.creationDate - a.creationDate).slice((requestPage - 1) * 5).slice(0, 5);
+    }
+
+    if (archiveDates.length === 0) {
+      for (let i = 0; i < dates.length; i++) {
+        if (hasDiffWithOriginal) {
+          if (!archiveDates.includes(dates[i].date)) {
+            archiveDates.push(dates[i].date);
+          }
+        } else {
+          if (dates[i].date < startDate && !archiveDates.includes(dates[i].date)) {
+            archiveDates.push(dates[i].date);
+          }
+        }
+      }
+    }
+
     return res.status(200).json({
       success: 200,
       message: messages.getAll,
-      data: { posts: innerPosts, dates: dates, topTwoLiked: topTwoLiked, count }
+      data: { posts: innerPosts, dates: archiveDates, topTwoLiked: topTwoLikedPosts, count }
     });
   }).catch(err => {
     return res.status(400).json({
@@ -211,9 +264,38 @@ router.get('/like/:id', (req, res) => {
   const params = req.params;
   if (params) {
     const { id } = params;
-    Post.findById(id).then(post => {
+    Post.findById(id).populate('author').populate('comments').then(post => {
+      let filtredPosts = topTwoLikedPosts.map((p, i) => ({ post: p, index: i }))
+        .filter(p => p.post.title === post.title && p.post.content === post.content && p.post.creationDate === post.creationDate);
+      if (filtredPosts.length > 0) {
+        topTwoLikedPosts[filtredPosts[0].index].likes++;
+      }
+
       ++post.likes;
       post.save().then(() => {
+          filtredPosts = topTwoLikedPosts.filter(p => p.likes <= post.likes);
+          if (filtredPosts.length > 0) {
+            let temp = [...topTwoLikedPosts];
+            temp.push(post);
+            temp = temp.sort((a, b) => {
+              const likeDiff = b.likes - a.likes;
+              if (likeDiff === 0) {
+                const datesDiff = b.creationDate - a.creationDate;
+                if (datesDiff === 0) {
+                  return b.title.length - a.title.length;
+                }
+
+                return datesDiff;
+              }
+
+              return likeDiff;
+            }).slice(0, 2);
+            topTwoLikedPosts.pop();
+            topTwoLikedPosts.pop();
+            topTwoLikedPosts.push(temp[0]);
+            topTwoLikedPosts.push(temp[1]);
+          }
+
         return res.status(200).json({
           success: true,
           message: messages.addedLike
@@ -272,6 +354,9 @@ function getDaysOfMonth(year, month) {
   const monthEnd = new Date(year, month + 1, 1);
   const days = Math.round((monthEnd - monthStart) / (oneDay));
   return days;
+}
+
+function pushTopTwoIfEmpty(posts) {
 }
 
 module.exports = router;
