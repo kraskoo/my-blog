@@ -15,7 +15,7 @@
         <img src="./assets/thumb.png" class="img-fluid" />
       </ng-template>
       <div class="inner-content"
-        *ngFor="let post of (posts | sortPosts: 'author._id')">
+        *ngFor="let post of (posts | sortPosts: 'author._id|asc,creationDate|desc,title.length|desc,_id')">
         <resume-post [post]="post"></resume-post>
       </div>
       <ng-template [ngIf]="pages > 1">
