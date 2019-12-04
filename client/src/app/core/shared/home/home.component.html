@@ -6,7 +6,9 @@
         news articles from the best Programming websites on the web</p>
     </div>
   </div>
-  <top-two-liked [posts]="topTwoLiked"></top-two-liked>
+  <ng-template [ngIf]="pages > 1">
+    <top-two-liked [posts]="topTwoLiked"></top-two-liked>
+  </ng-template>
   <div class="row">
     <div class="col-md-8 blog-main">
       <ng-template [ngIf]="posts.length === 0">
@@ -20,7 +22,9 @@
         <nav aria-label="Page navigation example">
           <ul class="pagination">
             <ng-template [ngIf]="page > 1">
-              <li class="page-item"><p class="page-link" (click)="changePage(page - 1)">Previous</p></li>
+              <li class="page-item">
+                <p class="page-link" (click)="changePage(page - 1)">Previous</p>
+              </li>
             </ng-template>
             <li *ngFor="let p of pageNumbers" class="page-item" [class.disabled]="page === p">
               <ng-template [ngIf]="page !== p">
@@ -31,7 +35,9 @@
               </ng-template>
             </li>
             <ng-template [ngIf]="page < pages">
-              <li class="page-item"><p class="page-link" (click)="changePage(page + 1)">Next</p></li>
+              <li class="page-item">
+                <p class="page-link" (click)="changePage(page + 1)">Next</p>
+              </li>
             </ng-template>
           </ul>
         </nav>
@@ -39,7 +45,9 @@
     </div>
     <aside class="col-md-4 blog-sidebar">
       <right-side-common></right-side-common>
-      <resume-archives [dates]="dates"></resume-archives>
+      <ng-template [ngIf]="pages > 1">
+        <resume-archives [dates]="dates"></resume-archives>
+      </ng-template>
     </aside>
   </div>
 </main>

@@ -1,7 +1,7 @@
 import { Component, OnInit, Input } from '@angular/core';
-import { ExtendedPost } from '../../models/post.model';
 
 @Component({
+  // tslint:disable-next-line: component-selector
   selector: 'resume-archives',
   templateUrl: './resume-archives.component.html',
   styleUrls: ['./resume-archives.component.css']
@@ -11,6 +11,7 @@ export class ResumeArchivesComponent implements OnInit {
   archives: { key: string, value: string }[] = [];
 
   ngOnInit(): void {
+    console.log(this.dates);
     this.dates.forEach(p => {
       const creationDate = new Date(p);
       const month = creationDate.getMonth();

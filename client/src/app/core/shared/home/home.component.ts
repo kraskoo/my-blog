@@ -1,11 +1,11 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute, Params } from '@angular/router';
+import { ActivatedRoute, Params, Router } from '@angular/router';
+import { switchMap, map } from 'rxjs/operators';
+
 import { PostService } from '../../services/post.service';
 import { MetadataService } from '../../services/meta-data-service';
 
 import { Post, ExtendedPost } from '../../models/post.model';
-import { switchMap, map } from 'rxjs/operators';
-import { Observable } from 'rxjs';
 
 @Component({
   selector: 'app-home',
@@ -22,6 +22,7 @@ export class HomeComponent implements OnInit {
 
   constructor(
     private route: ActivatedRoute,
+    private router: Router,
     private postService: PostService,
     private metadataService: MetadataService) { }
 
@@ -31,32 +32,15 @@ export class HomeComponent implements OnInit {
     this.proceedData();
   }
 
-  proceedData(isPageChanged = false) {
-    let observable: Observable<{
-      posts: Post[];
-      dates: Date[];
-      topTwoLiked: Post[];
-      count: number;
-    }>;
-    if (!isPageChanged) {
-      observable =
-        // tslint:disable-next-line: no-string-literal
-        this.route.params.pipe(switchMap((p: Params) => {
-          this.page = Number(p.page);
-          return this.postService.getAll(true, this.page).pipe(
-            // tslint:disable-next-line: no-shadowed-variable
-            map(data => data.data)
-          );
-          // tslint:disable-next-line: no-shadowed-variable
-        }));
-    } else {
-      observable = this.postService.getAll(true, this.page).pipe(
+  proceedData() {
+    this.route.params.pipe(switchMap((p: Params) => {
+      this.page = Number(p.page);
+      return this.postService.getAll(true, this.page).pipe(
         // tslint:disable-next-line: no-shadowed-variable
         map(data => data.data)
       );
-    }
-
-    observable.subscribe(function(data: { posts: Post[], dates: Date[], topTwoLiked: Post[], count: number }) {
+      // tslint:disable-next-line: no-shadowed-variable
+    })).subscribe(function(data: { posts: Post[], dates: Date[], topTwoLiked: Post[], count: number }) {
       // tslint:disable-next-line: no-string-literal
       const postCount = data.count > 5 ? data.count / 5 : data.count;
       // tslint:disable-next-line: radix
@@ -67,7 +51,6 @@ export class HomeComponent implements OnInit {
         this.pages = postCount;
       }
 
-      console.log(this.pageNumbers);
       this.pageNumbers = [];
       for (let i = 1; i <= this.pages; i++) {
         this.pageNumbers.push(i);
@@ -91,7 +74,6 @@ export class HomeComponent implements OnInit {
   }
 
   changePage(newPage: number) {
-    this.page = newPage;
-    this.proceedData(true);
+    this.router.navigate([`/home/${newPage}`]);
   }
 }
