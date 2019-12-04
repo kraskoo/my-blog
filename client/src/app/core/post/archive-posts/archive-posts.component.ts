@@ -20,7 +20,9 @@ export class ArchivePostsComponent implements OnInit {
     private metadataService: MetadataService) { }
 
   ngOnInit() {
-    this.metadataService.updateTitle(`Archives - ${getMonthAsWord(Number(this.route.snapshot.params['month']))}, ${this.route.snapshot.params['year']}`);
+    this.metadataService.updateTitle(
+      // tslint:disable-next-line: no-string-literal
+      `Archives - ${getMonthAsWord(Number(this.route.snapshot.params['month']))}, ${this.route.snapshot.params['year']}`);
     this.metadataService.updateAllMetas();
     // tslint:disable-next-line: no-string-literal
     this.date = `${this.route.snapshot.params['month']}-${this.route.snapshot.params['year']}`;

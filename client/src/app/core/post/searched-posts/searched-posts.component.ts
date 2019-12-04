@@ -27,6 +27,7 @@ export class SearchedPostsComponent implements OnInit {
     this.metadataService.updateAllMetas();
     this.posts = this.route.params.pipe(switchMap((p: Params) => {
       this.extendedPosts = [];
+      // tslint:disable-next-line: no-string-literal
       this.search = p['search'];
       return this.postService.getSearched(this.search);
     }));

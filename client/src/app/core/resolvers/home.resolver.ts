@@ -11,6 +11,7 @@ export default class HomeResolver implements Resolve<{ posts: Post[], dates: Dat
   constructor(private postService: PostService) { }
 
   resolve(route: ActivatedRouteSnapshot, state: RouterStateSnapshot) {
+    // tslint:disable-next-line: no-string-literal
     const page = Number(route.params['page']);
     // tslint:disable-next-line: no-string-literal
     return this.postService.getAll(true, page).pipe(

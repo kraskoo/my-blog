@@ -6,7 +6,8 @@ module.exports = (settings) => {
   mongoose.connect(settings.db, {
     useNewUrlParser: true,
     useCreateIndex: true,
-    useUnifiedTopology: true
+    useUnifiedTopology: true,
+    useFindAndModify: false
   });
   const db = mongoose.connection;
   db.once('open', err => {

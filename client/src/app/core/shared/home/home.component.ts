@@ -1,9 +1,11 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Params } from '@angular/router';
 import { PostService } from '../../services/post.service';
 import { MetadataService } from '../../services/meta-data-service';
 
 import { Post, ExtendedPost } from '../../models/post.model';
+import { switchMap, map } from 'rxjs/operators';
+import { Observable } from 'rxjs';
 
 @Component({
   selector: 'app-home',
@@ -15,8 +17,8 @@ export class HomeComponent implements OnInit {
   dates: Date[] = [];
   topTwoLiked: ExtendedPost[] = [];
   pageNumbers: number[] = [];
-  page: number = 1;
-  pages: number = 0;
+  page = 1;
+  pages = 0;
 
   constructor(
     private route: ActivatedRoute,
@@ -26,12 +28,61 @@ export class HomeComponent implements OnInit {
   ngOnInit() {
     this.metadataService.updateTitle('Home');
     this.metadataService.updateAllMetas();
-    // tslint:disable-next-line: no-string-literal
-    const data = this.route.snapshot.data['data'];
-    this.proceedData(data, 1);
+    this.proceedData();
   }
 
-  private convertToExtendedPost(posts: Post[]): ExtendedPost[] {
+  proceedData(isPageChanged = false) {
+    let observable: Observable<{
+      posts: Post[];
+      dates: Date[];
+      topTwoLiked: Post[];
+      count: number;
+    }>;
+    if (!isPageChanged) {
+      observable =
+        // tslint:disable-next-line: no-string-literal
+        this.route.params.pipe(switchMap((p: Params) => {
+          this.page = Number(p.page);
+          return this.postService.getAll(true, this.page).pipe(
+            // tslint:disable-next-line: no-shadowed-variable
+            map(data => data.data)
+          );
+          // tslint:disable-next-line: no-shadowed-variable
+        }));
+    } else {
+      observable = this.postService.getAll(true, this.page).pipe(
+        // tslint:disable-next-line: no-shadowed-variable
+        map(data => data.data)
+      );
+    }
+
+    observable.subscribe(function(data: { posts: Post[], dates: Date[], topTwoLiked: Post[], count: number }) {
+      // tslint:disable-next-line: no-string-literal
+      const postCount = data.count > 5 ? data.count / 5 : data.count;
+      // tslint:disable-next-line: radix
+      const intNumber = parseInt(postCount.toString());
+      if (intNumber < postCount) {
+        this.pages = 1 + intNumber;
+      } else {
+        this.pages = postCount;
+      }
+
+      console.log(this.pageNumbers);
+      this.pageNumbers = [];
+      for (let i = 1; i <= this.pages; i++) {
+        this.pageNumbers.push(i);
+      }
+
+      // tslint:disable-next-line: no-string-literal
+      this.posts = this.convertToExtendedPost(data.posts);
+      // tslint:disable-next-line: no-string-literal
+      this.dates = data.dates;
+      // tslint:disable-next-line: no-string-literal
+      this.topTwoLiked = this.convertToExtendedPost(data.topTwoLiked);
+    }.bind(this));
+  }
+
+  convertToExtendedPost(posts: Post[]): ExtendedPost[] {
     return posts.map(post => {
       const paragraphs = post.content.split(/<[^>]*>/gm).filter(x => x !== '' && x.length > 5);
       const content = `<p>${paragraphs[0]}</p> <p>${paragraphs[1]} ...</p>`;
@@ -39,35 +90,8 @@ export class HomeComponent implements OnInit {
     });
   }
 
-  proceedData(data: any, currentPage: number = 1) {
-    this.page = currentPage;
-    const postCount = Number(data['count']) / 5;
-    const intNumber = parseInt(postCount.toString());
-    if (intNumber < postCount) {
-      this.pages = 1 + intNumber;
-    } else {
-      this.pages = postCount;
-    }
-    
-    for (let i = 1; i <= this.pages; i++) {
-      this.pageNumbers.push(i);
-    }
-
-    console.log(this.posts);
-    this.posts = this.convertToExtendedPost(data['posts']);
-    this.dates = data['dates'];
-    this.topTwoLiked = this.convertToExtendedPost(data['topTwoLiked']);
-  }
-
   changePage(newPage: number) {
-    this.posts = [];
-    this.dates = [];
-    this.topTwoLiked = [];
-    this.pageNumbers = [];
-    this.page = 1;
-    this.pages = 0;
-    this.postService.getAll(true, newPage).subscribe(function(data: { data: any; }) {
-      this.proceedData(data.data, newPage);
-    }.bind(this));
+    this.page = newPage;
+    this.proceedData(true);
   }
 }

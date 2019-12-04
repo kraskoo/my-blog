@@ -1,3 +1,7 @@
 .flex {
     flex-wrap: initial;
 }
+
+.page-link {
+    cursor: pointer;
+}

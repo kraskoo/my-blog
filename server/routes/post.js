@@ -99,7 +99,7 @@ router.get('/all/:page', (req, res) => {
     if (hasDiffWithOriginal) {
       const diff = dates.length < 2 ? dates.length - count : 2 - count;
       for (let i = 0; i < diff; i++) {
-        innerPosts.push(dates.pop().post);
+        innerPosts.push(dates.shift().post);
       }
 
       innerPosts = innerPosts.sort((a, b) => b.creationDate - a.creationDate);
