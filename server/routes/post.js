@@ -324,7 +324,7 @@ router.get('/archives/:month/:year', (req, res) => {
   const params = req.params;
   if (params) {
     let { month, year } = params;
-    month = Number(month);
+    month = Number(month) - 1;
     year = Number(year);
     const startDate = new Date(year, month, 1);
     const endDate = new Date(year, month, getDaysOfMonth(year, month));

@@ -13,7 +13,7 @@ export class ResumeArchivesComponent implements OnInit {
   ngOnInit(): void {
     this.dates.forEach(p => {
       const creationDate = new Date(p);
-      const month = creationDate.getMonth();
+      const month = creationDate.getMonth() + 1;
       const year = creationDate.getFullYear();
       const key = `${`${month}`.length === 1 ? `0${month}` : month}-${year}`;
       const value = `/post/archives/${month}/${year}`;
